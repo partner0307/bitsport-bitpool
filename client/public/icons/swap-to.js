@@ -18,9 +18,9 @@ const SwapTo = () => {
           transform="translate(0 0)"
           fill="none"
           stroke="#9a9a9a"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="1"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="1"
         />
         <path
           id="Path_1491"
@@ -29,9 +29,9 @@ const SwapTo = () => {
           transform="translate(5.25 5.25)"
           fill="none"
           stroke="#9a9a9a"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="1"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="1"
         />
         <path
           id="Path_1492"
@@ -40,9 +40,9 @@ const SwapTo = () => {
           transform="translate(8.75 5.25)"
           fill="none"
           stroke="#9a9a9a"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="1"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="1"
         />
       </g>
     </svg>

@@ -13,7 +13,7 @@ const ArrowRight = () => {
         transform="translate(16040.438 15053.917)"
         fill="none"
         stroke="#fff"
-        strokeWidth="2"
+        stroke-width="2"
       />
     </svg>
   );

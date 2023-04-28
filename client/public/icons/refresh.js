@@ -18,9 +18,9 @@ const Refresh = () => {
           transform="translate(-6.698 -0.418)"
           fill="none"
           stroke="#fff"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="3"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="3"
         />
         <path
           id="Path_2812"
@@ -29,9 +29,9 @@ const Refresh = () => {
           transform="translate(0 -4.604)"
           fill="none"
           stroke="#fff"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="3"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="3"
         />
         <path
           id="Path_2813"
@@ -39,9 +39,9 @@ const Refresh = () => {
           d="M4.214,10.989A9.732,9.732,0,0,1,20.273,7.356L25.29,12.07M1.5,16.4l5.018,4.715a9.732,9.732,0,0,0,16.058-3.633"
           fill="none"
           stroke="#fff"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="3"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="3"
         />
       </g>
     </svg>

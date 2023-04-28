@@ -25,8 +25,8 @@ const Game = () => {
           transform="translate(20708.25 23199.994)"
           fill="none"
           stroke="#fff"
-          strokeLinecap="round"
-          strokeWidth="15"
+          stroke-linecap="round"
+          stroke-width="15"
         />
       </g>
     </svg>

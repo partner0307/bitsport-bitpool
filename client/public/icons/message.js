@@ -18,7 +18,7 @@ const Message = () => {
           transform="translate(3742.6 -22510)"
           fill="none"
           stroke="#afafaf"
-          strokeWidth="2"
+          stroke-width="2"
         >
           <rect width="26.75" height="23.017" rx="4" stroke="none" />
           <rect x="1" y="1" width="24.75" height="21.017" rx="3" fill="none" />
@@ -30,7 +30,7 @@ const Message = () => {
           transform="translate(-0.151 -7.792)"
           fill="none"
           stroke="#afafaf"
-          strokeWidth="4"
+          stroke-width="4"
         />
         <path
           id="Path_238"
@@ -39,7 +39,7 @@ const Message = () => {
           transform="translate(-1.374 -7.789)"
           fill="#afafaf"
           stroke="#afafaf"
-          strokeWidth="1"
+          stroke-width="1"
         />
       </g>
     </svg>

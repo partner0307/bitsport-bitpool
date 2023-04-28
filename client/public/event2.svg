@@ -8,14 +8,14 @@
     </pattern>
   </defs>
   <g id="Group_1030" data-name="Group 1030" transform="translate(-769 -1906)">
-    <g id="BG_i_Pad_HD_Red_Blue_236968ddde" transform="translate(769 1906)" stroke="#707070" strokeWidth="0.5" fill="url(#pattern)">
+    <g id="BG_i_Pad_HD_Red_Blue_236968ddde" transform="translate(769 1906)" stroke="#707070" stroke-width="0.5" fill="url(#pattern)">
       <rect width="524" height="367" rx="4" stroke="none"/>
       <rect x="0.25" y="0.25" width="523.5" height="366.5" rx="3.75" fill="none"/>
     </g>
     <rect id="_13_02_2023_8_Ball_Love_Win_Streak_4311c898dd" data-name="13_02_2023_8_Ball_Love_Win_Streak_4311c898dd" width="524" height="258" transform="translate(769 1961)" fill="url(#pattern-2)"/>
-    <text id="_8_BALL_LOVE_WIN_STREAK" data-name="8 BALL LOVE WIN STREAK" transform="translate(942 1952)" fill="#fff" fontSize="25" fontFamily="Poppins-Bold, Poppins" fontWeight="700" letterSpacing="-0.02em"><tspan x="-148.65" y="0">8 BALL LOVE WIN STREAK</tspan></text>
+    <text id="_8_BALL_LOVE_WIN_STREAK" data-name="8 BALL LOVE WIN STREAK" transform="translate(942 1952)" fill="#fff" font-size="25" font-family="Poppins-Bold, Poppins" font-weight="700" letter-spacing="-0.02em"><tspan x="-148.65" y="0">8 BALL LOVE WIN STREAK</tspan></text>
     <rect id="Rectangle_1248" data-name="Rectangle 1248" width="156" height="42" rx="6" transform="translate(799 2211)" fill="#868596"/>
-    <text id="WINSTREAK" transform="translate(877 2239)" fill="#fff" fontSize="20" fontFamily="Poppins-Bold, Poppins" fontWeight="700" letterSpacing="-0.02em"><tspan x="-57.72" y="0">WINSTREAK</tspan></text>
-    <text id="Ends_in_17h_21m" data-name="Ends in 17h 21m" transform="translate(974 2237)" fill="#bababa" fontSize="17" fontFamily="Helvetica-Light, Helvetica" fontWeight="300"><tspan x="0" y="0">Ends in 17h 21m</tspan></text>
+    <text id="WINSTREAK" transform="translate(877 2239)" fill="#fff" font-size="20" font-family="Poppins-Bold, Poppins" font-weight="700" letter-spacing="-0.02em"><tspan x="-57.72" y="0">WINSTREAK</tspan></text>
+    <text id="Ends_in_17h_21m" data-name="Ends in 17h 21m" transform="translate(974 2237)" fill="#bababa" font-size="17" font-family="Helvetica-Light, Helvetica" font-weight="300"><tspan x="0" y="0">Ends in 17h 21m</tspan></text>
   </g>
 </svg>

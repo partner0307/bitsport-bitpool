@@ -4,94 +4,94 @@
 
 /* Poppins */
 @font-face {
-  fontfamily: "Poppins";
+  font-family: "Poppins";
   src: url("../asset/Poppins/Poppins-ExtraLight.ttf");
-  fontweight: 200;
+  font-weight: 200;
   font-style: normal;
 }
 @font-face {
-  fontfamily: "Poppins";
+  font-family: "Poppins";
   src: url("../asset/Poppins/Poppins-Light.ttf");
-  fontweight: 300;
+  font-weight: 300;
   font-style: normal;
 }
 @font-face {
-  fontfamily: "Poppins";
+  font-family: "Poppins";
   src: url("../asset/Poppins/Poppins-Regular.ttf");
-  fontweight: 400;
+  font-weight: 400;
   font-style: normal;
 }
 @font-face {
-  fontfamily: "Poppins";
+  font-family: "Poppins";
   src: url("../asset/Poppins/Poppins-Medium.ttf");
-  fontweight: 500;
+  font-weight: 500;
   font-style: normal;
 }
 @font-face {
-  fontfamily: "Poppins";
+  font-family: "Poppins";
   src: url("../asset/Poppins/Poppins-SemiBold.ttf");
-  fontweight: 600;
+  font-weight: 600;
   font-style: normal;
 }
 @font-face {
-  fontfamily: "Poppins";
+  font-family: "Poppins";
   src: url("../asset/Poppins/Poppins-ExtraBold.ttf");
-  fontweight: bold;
+  font-weight: bold;
   font-style: normal;
 }
 @font-face {
-  fontfamily: "Poppins";
+  font-family: "Poppins";
   src: url("../asset/Poppins/Poppins-ExtraBold.ttf");
-  fontweight: 800;
+  font-weight: 800;
   font-style: normal;
 }
 @font-face {
-  fontfamily: "Poppins";
+  font-family: "Poppins";
   src: url("../asset/Poppins/Poppins-ExtraBold.ttf");
-  fontweight: 900;
+  font-weight: 900;
   font-style: normal;
 }
 /* Rajdhani */
 @font-face {
-  fontfamily: "Rajdhani";
+  font-family: "Rajdhani";
   src: url("../asset/rajdhani/Rajdhani-Light.ttf");
-  fontweight: 300;
+  font-weight: 300;
   font-style: normal;
 }
 @font-face {
-  fontfamily: "Rajdhani";
+  font-family: "Rajdhani";
   src: url("../asset/rajdhani/Rajdhani-Regular.ttf");
-  fontweight: 400;
+  font-weight: 400;
   font-style: normal;
 }
 @font-face {
-  fontfamily: "Rajdhani";
+  font-family: "Rajdhani";
   src: url("../asset/rajdhani/Rajdhani-Medium.ttf");
-  fontweight: 500;
+  font-weight: 500;
   font-style: normal;
 }
 @font-face {
-  fontfamily: "Rajdhani";
+  font-family: "Rajdhani";
   src: url("../asset/rajdhani/Rajdhani-SemiBold.ttf");
-  fontweight: 600;
+  font-weight: 600;
   font-style: normal;
 }
 @font-face {
-  fontfamily: "Rajdhani";
+  font-family: "Rajdhani";
   src: url("../asset/rajdhani/Rajdhani-Bold.ttf");
-  fontweight: bold;
+  font-weight: bold;
   font-style: normal;
 }
 @font-face {
-  fontfamily: "Rajdhani";
+  font-family: "Rajdhani";
   src: url("../asset/rajdhani/Rajdhani-Bold.ttf");
-  fontweight: 800;
+  font-weight: 800;
   font-style: normal;
 }
 @font-face {
-  fontfamily: "Rajdhani";
+  font-family: "Rajdhani";
   src: url("../asset/rajdhani/Rajdhani-Bold.ttf");
-  fontweight: 900;
+  font-weight: 900;
   font-style: normal;
 }
 
@@ -174,13 +174,13 @@ body {
 
 .leader {
   text-shadow: -0.5px 0 white, 0 0.5px white, 0.5px 0 white, 0 -0.5px white;
-  fontsize: 90px;
+  font-size: 90px;
   line-height: 30px;
 }
 
 .nft-text {
   text-shadow: -0.5px 0 white, 0 0.5px white, 0.5px 0 white, 0 -0.5px white;
-  fontsize: 100px;
+  font-size: 100px;
   line-height: 30px;
 }
 
@@ -202,7 +202,7 @@ body {
 }
 
 .ten {
-  fontsize: 10px;
+  font-size: 10px;
 }
 
 .thin-line {
@@ -268,12 +268,12 @@ body {
   }
 
   .leader {
-    fontsize: 40px;
+    font-size: 40px;
     line-height: 30px;
   }
 
   .nft-text {
-    fontsize: 60px;
+    font-size: 60px;
     line-height: 40px;
   }
 

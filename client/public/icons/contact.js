@@ -12,10 +12,10 @@ const Contact = () => {
           data-name="HELP CENTER"
           transform="translate(51 60.979)"
           fill="#777786"
-          fontSize="15"
-          fontFamily="Rajdhani-Medium, Rajdhani"
-          fontWeight="500"
-          letterSpacing="-0.02em"
+          font-size="15"
+          font-family="Rajdhani-Medium, Rajdhani"
+          font-weight="500"
+          letter-spacing="-0.02em"
         >
           <tspan x="-38.467" y="0">
             HELP CENTER
@@ -26,10 +26,10 @@ const Contact = () => {
           data-name="Ask your question"
           transform="translate(51 77.506)"
           fill="#777786"
-          fontSize="15"
-          fontFamily="Rajdhani-Light, Rajdhani"
-          fontWeight="300"
-          letterSpacing="-0.02em"
+          font-size="15"
+          font-family="Rajdhani-Light, Rajdhani"
+          font-weight="300"
+          letter-spacing="-0.02em"
         >
           <tspan x="-51.247" y="0">
             Ask your question

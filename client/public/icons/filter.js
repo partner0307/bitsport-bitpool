@@ -13,7 +13,7 @@ const Filter = () => {
         d="M22.055,4H5V8.264l6.091,6.091V24.71l4.873-2.825v-7.53l6.091-6.091Z"
         transform="translate(-5 -4)"
         fill="#9b9ca3"
-        fillRule="evenodd"
+        fill-rule="evenodd"
       />
     </svg>
   );

@@ -33,7 +33,7 @@ const EmptyTransaction = () => {
             id="Path_2799"
             data-name="Path 2799"
             d="M64,8H26V88H84V28H64ZM36,37H74v4H36Zm0,9H74v4H36Zm38,9H36v4H74ZM66,67l4,4-4,4-4-4ZM50,18l-3,3,3,3,3-3Z"
-            fillRule="evenodd"
+            fill-rule="evenodd"
             fill="url(#linear-gradient)"
           />
           <path
@@ -47,14 +47,14 @@ const EmptyTransaction = () => {
             data-name="Path 2801"
             d="M4.172,73.171l14.5-14.5,5.656,5.658-14.5,14.5L4.172,73.172Z"
             fill="#575a5f"
-            fillRule="evenodd"
+            fill-rule="evenodd"
           />
           <path
             id="Path_2802"
             data-name="Path 2802"
             d="M51,48A16,16,0,1,0,35,64,16,16,0,0,0,51,48Zm4,0A20,20,0,1,0,35,68,20,20,0,0,0,55,48Z"
             fill="#575a5f"
-            fillRule="evenodd"
+            fill-rule="evenodd"
           />
         </g>
         <text
@@ -62,10 +62,10 @@ const EmptyTransaction = () => {
           data-name="NO RECORDS FOUND."
           transform="translate(1466 613)"
           fill="#9b9ca3"
-          fontSize="22"
-          fontFamily="Rajdhani-Bold, Rajdhani"
-          fontWeight="700"
-          letterSpacing="-0.02em"
+          font-size="22"
+          font-family="Rajdhani-Bold, Rajdhani"
+          font-weight="700"
+          letter-spacing="-0.02em"
           opacity="0.487"
         >
           <tspan x="0" y="0">

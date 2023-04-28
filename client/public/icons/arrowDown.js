@@ -18,9 +18,9 @@ const ArrowDown = () => {
           transform="translate(18991.91 20614.273)"
           fill="none"
           stroke="#fff"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
         />
       </g>
     </svg>

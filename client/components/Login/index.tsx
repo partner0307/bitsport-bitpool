@@ -33,7 +33,7 @@ const Login = () => {
     axios.post(`${SERVER_URI}/signin`, data).then((res) => {
       if (res.data.success) {
         notification.success({ message: 'Success!', description: "You're signed successfully!" })
-        sessionStorage.setItem('token', res.data.token);
+        localStorage.setItem('token', res.data.token);
         dispatch(authActions.setCurrentUser(jwtDecode(res.data.token)))
         reset();
       } else {

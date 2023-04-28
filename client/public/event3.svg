@@ -8,14 +8,14 @@
     </pattern>
   </defs>
   <g id="Group_1029" data-name="Group 1029" transform="translate(-1347 -1906)">
-    <g id="green_bg_9d8a5b60aa" transform="translate(1347 1906)" stroke="#707070" strokeWidth="0.5" fill="url(#pattern)">
+    <g id="green_bg_9d8a5b60aa" transform="translate(1347 1906)" stroke="#707070" stroke-width="0.5" fill="url(#pattern)">
       <rect width="524" height="367" rx="4" stroke="none"/>
       <rect x="0.25" y="0.25" width="523.5" height="366.5" rx="3.75" fill="none"/>
     </g>
     <rect id="Last_Ballers_Showdown_Cups_e0fa559f60" width="524" height="205" transform="translate(1348 1987)" fill="url(#pattern-2)"/>
-    <text id="THE_LAST_BALLERS_SEASON_SHOWDOWN" data-name="THE LAST BALLERS SEASON SHOWDOWN" transform="translate(1609 1952)" fill="#fff" fontSize="25" fontFamily="Poppins-Bold, Poppins" fontWeight="700" letterSpacing="-0.02em"><tspan x="-240.2" y="0">THE LAST BALLERS SEASON SHOWDOWN</tspan></text>
+    <text id="THE_LAST_BALLERS_SEASON_SHOWDOWN" data-name="THE LAST BALLERS SEASON SHOWDOWN" transform="translate(1609 1952)" fill="#fff" font-size="25" font-family="Poppins-Bold, Poppins" font-weight="700" letter-spacing="-0.02em"><tspan x="-240.2" y="0">THE LAST BALLERS SEASON SHOWDOWN</tspan></text>
     <rect id="Rectangle_1249" data-name="Rectangle 1249" width="168" height="42" rx="6" transform="translate(1375 2211)" fill="#868596"/>
-    <text id="SHOWDOWN" transform="translate(1459 2239)" fill="#fff" fontSize="20" fontFamily="Poppins-Bold, Poppins" fontWeight="700" letterSpacing="-0.02em"><tspan x="-63.61" y="0">SHOWDOWN</tspan></text>
-    <text id="Ends_in_17h_21m" data-name="Ends in 17h 21m" transform="translate(1562 2237)" fill="#bababa" fontSize="17" fontFamily="Helvetica-Light, Helvetica" fontWeight="300"><tspan x="0" y="0">Ends in 17h 21m</tspan></text>
+    <text id="SHOWDOWN" transform="translate(1459 2239)" fill="#fff" font-size="20" font-family="Poppins-Bold, Poppins" font-weight="700" letter-spacing="-0.02em"><tspan x="-63.61" y="0">SHOWDOWN</tspan></text>
+    <text id="Ends_in_17h_21m" data-name="Ends in 17h 21m" transform="translate(1562 2237)" fill="#bababa" font-size="17" font-family="Helvetica-Light, Helvetica" font-weight="300"><tspan x="0" y="0">Ends in 17h 21m</tspan></text>
   </g>
 </svg>

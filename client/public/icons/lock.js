@@ -26,17 +26,17 @@ const Lock = () => {
           transform="translate(14850.424 16765)"
           fill="none"
           stroke="#fff"
-          strokeLinecap="round"
-          strokeWidth="5"
+          stroke-linecap="round"
+          stroke-width="5"
         />
         <g id="Group_1093" data-name="Group 1093" transform="translate(-1.34)">
           <text
             id="bitpool.com"
             transform="translate(174 823)"
             fill="#fff"
-            fontSize="12"
-            fontFamily="Helvetica-Light, Helvetica"
-            fontWeight="300"
+            font-size="12"
+            font-family="Helvetica-Light, Helvetica"
+            font-weight="300"
           >
             <tspan x="0" y="0">
               bitpool.com

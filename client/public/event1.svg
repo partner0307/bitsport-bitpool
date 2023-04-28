@@ -8,14 +8,14 @@
     </pattern>
   </defs>
   <g id="Group_1031" data-name="Group 1031" transform="translate(-190 -1906)">
-    <g id="green_bg_9d8a5b60aa" transform="translate(190 1906)" stroke="#707070" strokeWidth="0.5" fill="url(#pattern)">
+    <g id="green_bg_9d8a5b60aa" transform="translate(190 1906)" stroke="#707070" stroke-width="0.5" fill="url(#pattern)">
       <rect width="524" height="367" rx="4" stroke="none"/>
       <rect x="0.25" y="0.25" width="523.5" height="366.5" rx="3.75" fill="none"/>
     </g>
     <rect id="_25_01_2023_Outbreak_Live_bd05822648" data-name="25_01_2023_Outbreak_Live_bd05822648" width="524" height="205" transform="translate(191 1987)" fill="url(#pattern-2)"/>
-    <text id="OUTBREAK_QUESTS" data-name="OUTBREAK QUESTS" transform="translate(328 1952)" fill="#fff" fontSize="25" fontFamily="Poppins-Bold, Poppins" fontWeight="700" letterSpacing="-0.02em"><tspan x="-114.438" y="0">OUTBREAK QUESTS</tspan></text>
+    <text id="OUTBREAK_QUESTS" data-name="OUTBREAK QUESTS" transform="translate(328 1952)" fill="#fff" font-size="25" font-family="Poppins-Bold, Poppins" font-weight="700" letter-spacing="-0.02em"><tspan x="-114.438" y="0">OUTBREAK QUESTS</tspan></text>
     <rect id="Rectangle_1247" data-name="Rectangle 1247" width="102" height="42" rx="6" transform="translate(222 2211)" fill="#868596"/>
-    <text id="EVENT" transform="translate(273 2239)" fill="#fff" fontSize="20" fontFamily="Poppins-Bold, Poppins" fontWeight="700" letterSpacing="-0.02em"><tspan x="-30.75" y="0">EVENT</tspan></text>
-    <text id="Ends_in_17h_21m" data-name="Ends in 17h 21m" transform="translate(343 2237)" fill="#bababa" fontSize="17" fontFamily="Helvetica-Light, Helvetica" fontWeight="300"><tspan x="0" y="0">Ends in 17h 21m</tspan></text>
+    <text id="EVENT" transform="translate(273 2239)" fill="#fff" font-size="20" font-family="Poppins-Bold, Poppins" font-weight="700" letter-spacing="-0.02em"><tspan x="-30.75" y="0">EVENT</tspan></text>
+    <text id="Ends_in_17h_21m" data-name="Ends in 17h 21m" transform="translate(343 2237)" fill="#bababa" font-size="17" font-family="Helvetica-Light, Helvetica" font-weight="300"><tspan x="0" y="0">Ends in 17h 21m</tspan></text>
   </g>
 </svg>

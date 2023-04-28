@@ -17,9 +17,9 @@ const SwapIcon = () => {
           d="M37,20A17,17,0,1,1,20,3,17,17,0,0,1,37,20Z"
           fill="none"
           stroke="#9a9a9a"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="3"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="3"
         />
         <g
           id="Group_1397"
@@ -33,9 +33,9 @@ const SwapIcon = () => {
             transform="translate(1.2 -0.702)"
             fill="none"
             stroke="#9a9a9a"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
           />
           <path
             id="Path_1492"
@@ -44,9 +44,9 @@ const SwapIcon = () => {
             transform="translate(-0.702 1.2)"
             fill="none"
             stroke="#9a9a9a"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
           />
         </g>
         <g
@@ -61,9 +61,9 @@ const SwapIcon = () => {
             transform="translate(-12 -18)"
             fill="none"
             stroke="#9a9a9a"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
           />
           <path
             id="Path_1492-2"
@@ -72,9 +72,9 @@ const SwapIcon = () => {
             transform="translate(-13.902 -12)"
             fill="none"
             stroke="#9a9a9a"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
           />
         </g>
       </g>

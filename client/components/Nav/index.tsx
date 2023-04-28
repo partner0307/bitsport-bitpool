@@ -13,6 +13,9 @@ import {
   Nft,
   OfficialLogo,
   Tutorial,
+  ArrowDown,
+  QC,
+  USDG,
 } from "@/public/icons";
 import Link from "next/link";
 import Button, { variantTypes } from "../Button";
@@ -213,6 +216,29 @@ const MobileNav = ({ open, close }: { open: boolean; close: () => void }) => {
               text="Create Challenge"
               onClick={toggleChallenge}
             />
+
+            <div className="flex items-center">
+              <Link href="/wallet">
+                <div className="cursor-pointer px-1 py-4 flex items-center gap-1 bg-primary-950 rounded-l h-12">
+                  <USDG width="15.194" height={"19.075"} />
+                  <div className="font-medium text-xs text-white font-Poppins">
+                    33 USDG
+                  </div>
+                  <div>
+                    <QC width={"15.759"} height={"19.569"} />
+                  </div>
+                  <div className="font-medium flex text-xs text-white font-Poppins">
+                    5 QC
+                  </div>
+                </div>
+              </Link>
+              <div className="cursor-pointer relative px-3 py-4 justify-center items-center bg-primary-1000 rounded-br h-12">
+                <div className="pt-1.5">
+                  <ArrowDown />
+                </div>
+                <div className="h-9 w-9 bg-primary-800 rotate-45 -top-5 -right-7 absolute"></div>
+              </div>
+            </div>
           </div>
           <motion.div
             variants={variants}
