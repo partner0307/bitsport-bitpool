@@ -15,6 +15,7 @@ export interface IProp {
     streak: number;
     qc: number;
     difficalty: number;
+    coin_sku: number;
   };
 }
 
@@ -29,7 +30,7 @@ const QuestComponent = (prop: IProp) => {
       </div>
       <div className={`flex flex-col items-center ${prop.index > 1 && "hide"}`}>
         <div className="text-primary-450 text-sm font-bold">AMOUNT</div>
-        <div className=" text-white text-base font-semibold">{prop.quest.amount}</div>
+        <div className=" text-white text-base font-semibold">{prop.quest.amount} {prop.quest.coin_sku === 1 ? 'BITP' : prop.quest.coin_sku === 2 ? 'BUSD' : 'USDT'}</div>
       </div>
       <div className={`flex flex-col items-center ${prop.index > 1 && "hide"}`}>
         <div className="text-primary-450 text-sm font-bold">WIN STREAK</div>
@@ -41,7 +42,7 @@ const QuestComponent = (prop: IProp) => {
       </div>
       <div className={`flex flex-col items-center ${prop.index > 1 && "hide"}`}>
         <div className="text-primary-450 text-sm font-bold">DIFFICALTY</div>
-        <div className=" text-white text-base font-semibold">{prop.quest.difficalty}</div>
+        <div className=" text-white text-base font-semibold">{prop.quest.difficalty === 1 ? 'HARD' : prop.quest.difficalty === 2 ? 'MEDIUM' : 'HARD'}</div>
       </div>
       <Link href="/game">
         <Button
