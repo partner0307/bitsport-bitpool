@@ -1,4 +1,4 @@
-import { Router } from "express";
+import { Request, Response, Router } from "express";
 import * as auth from "../controllers/auth.controller";
 import * as challenge from '../controllers/challenges.controller';
 // import Authenticate from "../service/auth";
@@ -8,6 +8,11 @@ import * as challenge from '../controllers/challenges.controller';
  * Using Passport
  */
 const router = Router();
+
+// test
+router.get("/test", (req: Request, res: Response) => {
+    res.json({status: "success"})
+})
 
 // Authentication
 router.post("/signin", auth.SignIn);
