@@ -2,15 +2,18 @@ import Link from "next/link";
 import Image from "next/image";
 import * as yup from "yup";
 import axios from "axios";
+import jwtDecode from 'jwt-decode';
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useDispatch } from 'react-redux';
+import { notification } from 'antd';
 import { yupResolver } from "@hookform/resolvers/yup";
 import Button, { butonTypes, variantTypes } from "../Button";
 import { Check } from "@/public/icons";
 import Logo from "@/public/logo2.svg";
 import Input from "../Input";
-import { SERVER_URI } from "../../config";
-import { notification } from 'antd';
+import { SERVER_URI } from "@/config";
+import { authActions } from '@/store/auth';
 
 const schema = yup.object().shape({
   email: yup.string().email("Email is Invalid").required("Email is required"),
@@ -24,11 +27,14 @@ const Signup = () => {
   const { register, handleSubmit, formState: { errors }, reset, } = useForm<any>({ resolver: yupResolver(schema) });
 
   const [remember, setRemember] = useState(false);
+  const dispatch = useDispatch();
 
   const onSubmit = (data: any) => {
     axios.post(`${SERVER_URI}/signup`, data).then((res) => {
       if (res.data.success) {
         notification.success({ message: 'Success!', description: "You're registered successfully!" });
+        sessionStorage.setItem('token', res.data.token);
+        dispatch(authActions.setCurrentUser(jwtDecode(res.data.token)))
         reset();
       } else {
         notification.warning({ message: 'Error!', description: res.data.message });

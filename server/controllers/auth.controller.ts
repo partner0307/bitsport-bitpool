@@ -29,7 +29,7 @@ export const SignUp = async ( req: Request, res: Response ): Promise<Response> =
     money: { busd: 0, usdt: 0, usd: 0, bitp: 0, quest: 0 },
   });
   await newUser.save();
-  return res.json({ success: true, user: newUser });
+  return res.json({ success: true, token: generateToken(newUser) });
 };
 
 /**
