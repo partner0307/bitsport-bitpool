@@ -11,8 +11,7 @@ export default function Home() {
 
   useEffect(() => {
     axios.get(`${SERVER_URI}/challenge/index`).then(res => {
-      setData(res.data.model);
-      console.log(res.data.model);
+      setData(res.data.models);
     });
   }, []);
 

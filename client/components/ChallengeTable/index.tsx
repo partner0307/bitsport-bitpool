@@ -1,6 +1,6 @@
-import { ForwardRefExoticComponent } from 'react';
 import axios from 'axios';
 import moment from 'moment';
+import { ForwardRefExoticComponent } from 'react';
 import { useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Table, Button, Modal, notification } from 'antd';
@@ -20,12 +20,12 @@ interface RecordType {
 }
 
 const ChallengeTable = () => {
-    const [data, setData] = useState([]);
+    const [challenges, setChallenges] = useState([]);
     const model = useSelector((state: IState) => state.challenge.model);
 
     useEffect(() => {
         axios.get(`${SERVER_URI}/challenge/index`).then(res => {
-            setData(res.data.model);
+            setChallenges(res.data.models);
         })
     }, [model]);
 
@@ -37,7 +37,7 @@ const ChallengeTable = () => {
                 axios.delete(`${SERVER_URI}/challenge/remove/${id}`).then(res => {
                     if(res.data.success) {
                         notification.success({ message: 'Success!', description: 'The challenge was removed successfully!' });
-                        setData(data.filter((p: RecordType) => p._id !== res.data.model._id))
+                        setChallenges(challenges.filter((p: RecordType) => p._id !== res.data.model._id))
                     } else {
                         notification.warning({ message: 'Error!', description: res.data.message });
                     }
@@ -45,8 +45,9 @@ const ChallengeTable = () => {
             }
         })
     }
+    console.log(challenges);
 
-    const source: any = useMemo(() => data && data.map((p: object, i) => { return { ...p, index: i + 1, key: i } }), [data]);
+    const source: any = useMemo(() => challenges?.map((p: object, i) => { return { ...p, index: i + 1, key: i } }), [challenges]);
 
     return <>
         <Table dataSource={source} columns={[
