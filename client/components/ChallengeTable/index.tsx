@@ -46,7 +46,7 @@ const ChallengeTable = () => {
         })
     }
 
-    const source: any = useMemo(() => data.map((p: object, i) => { return { ...p, index: i + 1, key: i } }), [data]);
+    const source: any = useMemo(() => data.length && data.map((p: object, i) => { return { ...p, index: i + 1, key: i } }), [data]);
 
     return <>
         <Table dataSource={source} columns={[
