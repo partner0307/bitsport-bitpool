@@ -1,4 +1,4 @@
-import { SERVER_PORT } from "./config";
+import { SERVER_PORT, SERVER_URI } from "./config";
 import express from "express";
 // import morgan from "morgan";
 import cors from "cors";
@@ -27,7 +27,7 @@ passport.use(middlewarePassport);
 app.use("/api", apiRoutes);
 
 app.get("/", (req, res) => {
-  res.send(`The API is at http://127.0.0.1:${app.get("port")}`);
+  res.send(`The API is at ${SERVER_URI}:${app.get("port")}`);
 });
 
 export default app;

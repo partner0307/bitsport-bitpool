@@ -29,6 +29,7 @@ const Select = (props: ISelect) => {
   };
 
   const onChange = (data: any) => {
+    console.log(data);
     setSelected({
       icon: data.icon,
       name: data.name,

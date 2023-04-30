@@ -173,7 +173,7 @@ const Deposit = () => {
                     className={classNames(
                       "text-xs xl:text-sm font-bold text-primary-450",
                       {
-                        "col-span-1": item === "ADDRESS",
+                        "col-span-1": item === "COIN",
                       }
                     )}
                     key={index}

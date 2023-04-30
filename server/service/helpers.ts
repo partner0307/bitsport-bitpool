@@ -1,6 +1,6 @@
 import JwtWebToken from "jsonwebtoken";
 import { SECRET_KEY } from "../config";
-import { IUser } from "../models/Interfaces/IUser";
+import { IUser } from "../service/interfaces";
 
 /**
  * Generate User Token Infomation by jsonwebtoken

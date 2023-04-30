@@ -35,6 +35,7 @@ const Signup = () => {
         notification.success({ message: 'Success!', description: "You're registered successfully!" });
         localStorage.setItem('token', res.data.token);
         dispatch(authActions.setCurrentUser(jwtDecode(res.data.token)))
+        window.location.href = '/verify';
         reset();
       } else {
         notification.warning({ message: 'Error!', description: res.data.message });

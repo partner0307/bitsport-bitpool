@@ -34,7 +34,7 @@ const Login = () => {
       if (res.data.success) {
         notification.success({ message: 'Success!', description: "You're signed successfully!" })
         localStorage.setItem('token', res.data.token);
-        dispatch(authActions.setCurrentUser(jwtDecode(res.data.token)))
+        dispatch(authActions.setCurrentUser(jwtDecode(res.data.token)));
         reset();
       } else {
         notification.warning({ message: 'Error!', description: res.data.message });

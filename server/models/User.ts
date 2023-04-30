@@ -1,6 +1,6 @@
 import { model, Schema } from "mongoose";
 import bcrypt from "bcrypt";
-import { IUser } from "./Interfaces/IUser";
+import { IUser } from "../service/interfaces";
 
 /**
  * Create a new Schema from mongoose
@@ -18,6 +18,20 @@ const UserSchema = new Schema({
     bitp: { type: Number, required: true },
     quest: { type: Number, required: true },
   },
+  address: {
+    ether: {
+      privateKey: { type: String, required: true },
+      address: { type: String, required: true }
+    },
+    bitcoin: {
+      privateKey: { type: String, required: true },
+      address: { type: String, required: true }
+    },
+    tron: {
+      privateKey: { type: String, required: true },
+      address: { type: String, required: true }
+    }
+  }
 }, { timestamps: true });
 
 /**

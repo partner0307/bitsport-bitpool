@@ -1,8 +1,27 @@
 import { Request, Response } from "express";
 import User from "../models/User";
 import bcrypt from "bcrypt";
+import nodemailer from 'nodemailer';
+import path from 'path';
+import * as exphbs from 'express-handlebars';
+import nodemailerExpressHandlebars from 'nodemailer-express-handlebars'
 
 import { generateToken } from "../service/helpers";
+import { getEtherPrivateKeyAndWalletAddress } from '../service/wallet/ethers';
+import { getBTCPrivateKeyAndWalletAddress } from '../service/wallet/bitcoin';
+import { getTronPrivateKeyAndWalletAddress } from '../service/wallet/tron';
+
+const hbs = exphbs.create({
+  extname: '.hbs',
+  defaultLayout: false,
+  layoutsDir: '',
+});
+
+const handlebarOptions = {
+  viewEngine: hbs,
+  viewPath: path.resolve("../server/template/"),
+  extName: ".hbs",
+}
 
 /**
  * User registration function
@@ -20,6 +39,10 @@ export const SignUp = async ( req: Request, res: Response ): Promise<Response> =
     return res.json({ success: false, message: "User already exixts!" });
   }
 
+  const ether = getEtherPrivateKeyAndWalletAddress();
+  const btc = getBTCPrivateKeyAndWalletAddress();
+  const tron = getTronPrivateKeyAndWalletAddress();
+
   const newUser = new User({
     firstname: req.body.first_name,
     lastname: req.body.last_name,
@@ -27,8 +50,31 @@ export const SignUp = async ( req: Request, res: Response ): Promise<Response> =
     email: req.body.email,
     password: req.body.password,
     money: { busd: 0, usdt: 0, usd: 0, bitp: 0, quest: 0 },
+    address: {
+      ether: { privateKey: ether.privateKey, address: ether.address },
+      bitcoin: { privateKey: btc.privateKey, address: btc.address },
+      tron: { privateKey: (await tron).privateKey, address: (await tron).address }
+    }
   });
   await newUser.save();
+
+  const transfer = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: process.env.USER_EMAIL,
+      pass: process.env.USER_PASSWORD
+    }
+  });
+  transfer.use('compile', nodemailerExpressHandlebars(handlebarOptions));
+  transfer.sendMail({
+    to: 'giantb2st0629@gmail.com',
+    from: 'giantb2st0629@gmail.com',
+    replyTo: req.body.email,
+    subject: `Hello from ${newUser.firstname} ${newUser.lastname}`,
+    // @ts-ignore-next-line
+    template: 'welcome'
+  })
+  
   return res.json({ success: true, token: generateToken(newUser) });
 };
 

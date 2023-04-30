@@ -189,7 +189,7 @@ const Wallet = () => {
         Body={Swap}
         isOpen={isSwapOpen}
         close={toggleSwap}
-        isVoid
+        isVoid={5}
       />
       <Footer />
     </div>

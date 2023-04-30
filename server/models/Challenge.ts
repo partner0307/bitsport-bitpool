@@ -1,5 +1,5 @@
 import { model, Schema } from "mongoose";
-import { IChallenge } from "./Interfaces/IChallenge";
+import { IChallenge } from "../service/interfaces";
 
 /**
  * Create a new Schema from mongoose
