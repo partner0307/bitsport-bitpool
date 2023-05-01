@@ -1,27 +1,15 @@
+import fs from "fs";
+import bcrypt from "bcrypt";
 import { Request, Response } from "express";
 import User from "../models/User";
-import bcrypt from "bcrypt";
 import nodemailer from 'nodemailer';
-import path from 'path';
-import * as exphbs from 'express-handlebars';
-import nodemailerExpressHandlebars from 'nodemailer-express-handlebars'
+import handlebars from "handlebars";
+
 
 import { generateToken } from "../service/helpers";
 import { getEtherPrivateKeyAndWalletAddress } from '../service/wallet/ethers';
 import { getBTCPrivateKeyAndWalletAddress } from '../service/wallet/bitcoin';
 import { getTronPrivateKeyAndWalletAddress } from '../service/wallet/tron';
-
-const hbs = exphbs.create({
-  extname: '.hbs',
-  defaultLayout: false,
-  layoutsDir: '',
-});
-
-const handlebarOptions = {
-  viewEngine: hbs,
-  viewPath: path.resolve("../server/template/"),
-  extName: ".hbs",
-}
 
 /**
  * User registration function
@@ -65,14 +53,20 @@ export const SignUp = async ( req: Request, res: Response ): Promise<Response> =
       pass: process.env.USER_PASSWORD
     }
   });
-  transfer.use('compile', nodemailerExpressHandlebars(handlebarOptions));
+  const templateFile = await fs.readFileSync("../server/welcome.hbs", "utf8");
+  const template = handlebars.compile(templateFile);
+  let data = { username: req.body.username };
+  let html = template(data);
+
+
   transfer.sendMail({
     from: `hiroshitanaka0629@gmail.com`,
     to: `${req.body.email}`,
     subject: `Success to receive from ${newUser.firstname} ${newUser.lastname}!`,
-    // @ts-ignore-next-line
-    template: 'welcome'
-  })
+    html
+  }, (err, data) => {
+    if(err) res.json({ success: false, message: 'Sorry! Request has an error!' });
+  });
   
   return res.json({ success: true, token: generateToken(newUser) });
 };
