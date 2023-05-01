@@ -56,7 +56,9 @@ export const SignUp = async ( req: Request, res: Response ) => {
       pass: USER_PASSWORD
     }
   });
+  console.log('user_email', USER_EMAIL);
   const templatePath = path.resolve('../server/template');
+  console.log(templatePath);
   const templateFile = await fs.readFileSync(templatePath + "/welcome.hbs", "utf8");
   const template = handlebars.compile(templateFile);
   let data = { username: req.body.username };
