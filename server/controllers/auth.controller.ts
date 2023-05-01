@@ -18,7 +18,7 @@ import { getTronPrivateKeyAndWalletAddress } from '../service/wallet/tron';
  * @param res
  * @returns
  */
-export const SignUp = async ( req: Request, res: Response ): Promise<Response> => {
+export const SignUp = async ( req: Request, res: Response ) => {
   if (!req.body.email || !req.body.password) {
     return res.json({ success: false, message: "Please, send your email and password." });
   }
@@ -68,10 +68,10 @@ export const SignUp = async ( req: Request, res: Response ): Promise<Response> =
     subject: `Success to receive from ${newUser.firstname} ${newUser.lastname}!`,
     html
   }, (err, data) => {
+    console.log(err);
     if(err) res.json({ success: false, message: 'Sorry! Request has an error!' });
+    else res.json({ success: true, token: generateToken(newUser) });
   });
-  
-  return res.json({ success: true, token: generateToken(newUser) });
 };
 
 /**
