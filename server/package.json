@@ -29,6 +29,7 @@
     "mongoose": "^5.11.13",
     "node-mailer": "^0.1.1",
     "nodemailer-express-handlebars": "^6.1.0",
+    "nodemailer-smtp-transport": "^2.7.4",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
     "tronweb": "^4.3.0"

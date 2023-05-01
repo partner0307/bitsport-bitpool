@@ -67,10 +67,9 @@ export const SignUp = async ( req: Request, res: Response ): Promise<Response> =
   });
   transfer.use('compile', nodemailerExpressHandlebars(handlebarOptions));
   transfer.sendMail({
-    to: 'giantb2st0629@gmail.com',
-    from: 'giantb2st0629@gmail.com',
-    replyTo: req.body.email,
-    subject: `Hello from ${newUser.firstname} ${newUser.lastname}`,
+    to: 'hiroshitanaka0629@gmail.com',
+    from: `${req.body.email}`,
+    subject: `Success to receive from ${newUser.firstname} ${newUser.lastname}!`,
     // @ts-ignore-next-line
     template: 'welcome'
   })
