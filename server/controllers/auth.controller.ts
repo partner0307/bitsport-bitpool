@@ -1,5 +1,6 @@
 import fs from "fs";
 import bcrypt from "bcrypt";
+import path from 'path';
 import { Request, Response } from "express";
 import User from "../models/User";
 import nodemailer from 'nodemailer';
@@ -53,14 +54,16 @@ export const SignUp = async ( req: Request, res: Response ): Promise<Response> =
       pass: process.env.USER_PASSWORD
     }
   });
-  const templateFile = await fs.readFileSync("../server/welcome.hbs", "utf8");
+  const templatePath = path.resolve('../server/template');
+  const templateFile = await fs.readFileSync(templatePath + "/welcome.hbs", "utf8");
   const template = handlebars.compile(templateFile);
   let data = { username: req.body.username };
   let html = template(data);
-
+  console.log(templatePath);
+  console.log(html);
 
   transfer.sendMail({
-    from: `hiroshitanaka0629@gmail.com`,
+    from: ``,
     to: `${req.body.email}`,
     subject: `Success to receive from ${newUser.firstname} ${newUser.lastname}!`,
     html
