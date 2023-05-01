@@ -48,7 +48,8 @@ export const SignUp = async ( req: Request, res: Response ) => {
   await newUser.save();
 
   const transfer = nodemailer.createTransport({
-    service: 'gmail',
+    host: 'email-smtp.us-west-1.amazonaws.com',
+    port: 587,
     auth: {
       user: process.env.USER_EMAIL,
       pass: process.env.USER_PASSWORD
@@ -59,8 +60,6 @@ export const SignUp = async ( req: Request, res: Response ) => {
   const template = handlebars.compile(templateFile);
   let data = { username: req.body.username };
   let html = template(data);
-  console.log(templatePath);
-  console.log(html);
 
   transfer.sendMail({
     from: ``,
