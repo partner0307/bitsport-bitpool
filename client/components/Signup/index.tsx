@@ -56,8 +56,8 @@ const Signup = () => {
         </div>
 
         <Input name="username" label="USERNAME" register={register("username")} error={errors.username?.message} placeholder="Enter your username" />
-        <Input name="email" label="EMAIL" register={register("email")} error={errors.email?.message} placeholder="Enter your email" />
-        <Input name="password" label="PASSWORD" register={register("password")} error={errors.password?.message} placeholder="Enter your password" type="password" />
+        <Input name="signup_email" label="EMAIL" register={register("email")} error={errors.email?.message} placeholder="Enter your email" />
+        <Input name="signup_password" label="PASSWORD" register={register("password")} error={errors.password?.message} placeholder="Enter your password" type="password" />
 
         <div className="mt-10 flex items-center gap-4">
           <div onClick={() => setRemember(!remember)} className={`h-8 w-8 rounded transition-all duration-300 flex justify-center cursor-pointer items-center ${

@@ -8,12 +8,12 @@ const ArrowRight = () => {
     >
       <path
         id="Path_1004"
-        data-name="Path 1004"
+        dataname="Path 1004"
         d="M-16039.659-15053.29l3.906,4.858-3.906,4.546"
         transform="translate(16040.438 15053.917)"
         fill="none"
         stroke="#fff"
-        stroke-width="2"
+        strokeWidth="2"
       />
     </svg>
   );

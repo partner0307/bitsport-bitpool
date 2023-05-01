@@ -10,7 +10,12 @@ export interface IState {
             username: string,
             firstname: string,
             lastname: string,
-            money: { busd: number, usdt: number, usd: number, bitp: number, quest: number }
+            money: { busd: number, usdt: number, usd: number, bitp: number, quest: number },
+            address: {
+                ether: { privateKey: string, address: string },
+                bitcoin: { privateKey: string, address: string },
+                tron: { privateKey: string, address: string }
+            }
         }
     }
     challenge: {

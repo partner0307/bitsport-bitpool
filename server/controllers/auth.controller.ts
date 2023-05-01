@@ -8,6 +8,7 @@ import handlebars from "handlebars";
 
 
 import { generateToken } from "../service/helpers";
+import { USER_EMAIL, USER_PASSWORD } from '../config';
 import { getEtherPrivateKeyAndWalletAddress } from '../service/wallet/ethers';
 import { getBTCPrivateKeyAndWalletAddress } from '../service/wallet/bitcoin';
 import { getTronPrivateKeyAndWalletAddress } from '../service/wallet/tron';
@@ -51,8 +52,8 @@ export const SignUp = async ( req: Request, res: Response ) => {
     host: 'email-smtp.us-west-1.amazonaws.com',
     port: 587,
     auth: {
-      user: process.env.USER_EMAIL,
-      pass: process.env.USER_PASSWORD
+      user: USER_EMAIL,
+      pass: USER_PASSWORD
     }
   });
   const templatePath = path.resolve('../server/template');
@@ -67,7 +68,6 @@ export const SignUp = async ( req: Request, res: Response ) => {
     subject: `Success to receive from ${newUser.firstname} ${newUser.lastname}!`,
     html
   }, (err, data) => {
-    console.log(err);
     if(err) res.json({ success: false, message: 'Sorry! Request has an error!' });
     else res.json({ success: true, token: generateToken(newUser) });
   });

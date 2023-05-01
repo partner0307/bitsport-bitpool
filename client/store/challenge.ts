@@ -11,14 +11,14 @@ const initialState: ChallengeVariable = {
 }
 
 const challengeSlice = createSlice({
-    name: 'auth',
+    name: 'challenge',
     initialState,
     reducers: {
         setModalFlag: (state, action: PayloadAction<{ flag: boolean, model: object }>) => {
             state.flag = action.payload.flag;
             state.model = action.payload.model;
         }
-    },
+    }
 });
 
 export const challengeReducer = challengeSlice.reducer;

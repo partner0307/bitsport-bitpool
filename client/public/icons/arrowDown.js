@@ -8,19 +8,19 @@ const ArrowDown = () => {
     >
       <g
         id="Component_14_22"
-        data-name="Component 14 – 22"
+        dataname="Component 14 – 22"
         transform="translate(1.416 1.415)"
       >
         <path
           id="Path_81"
-          data-name="Path 81"
+          dataname="Path 81"
           d="M-18991.91-20614.273l4.652,4.613,4.629-4.613"
           transform="translate(18991.91 20614.273)"
           fill="none"
           stroke="#fff"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
         />
       </g>
     </svg>

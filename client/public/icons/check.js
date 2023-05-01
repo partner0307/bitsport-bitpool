@@ -8,7 +8,7 @@ const Check = () => {
     >
       <path
         id="Path_2797"
-        data-name="Path 2797"
+        dataname="Path 2797"
         d="M-5686.557-19841l2.749-2.557,3.986,4.324,7.448-9.43,2.56,2.678-10.007,12.139Z"
         transform="translate(5686.557 19848.662)"
       />

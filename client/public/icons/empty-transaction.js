@@ -15,13 +15,13 @@ const EmptyTransaction = () => {
           y2="1"
           gradientUnits="objectBoundingBox"
         >
-          <stop offset="0" stop-color="#f4f4f5" />
-          <stop offset="1" stop-color="#a8a8a8" />
+          <stop offset="0" stopColor="#f4f4f5" />
+          <stop offset="1" stopColor="#a8a8a8" />
         </linearGradient>
       </defs>
       <g
         id="NO_RECORDS_FOUND."
-        data-name="NO RECORDS FOUND."
+        dataname="NO RECORDS FOUND."
         transform="translate(-1466 -493.127)"
       >
         <g
@@ -31,41 +31,41 @@ const EmptyTransaction = () => {
         >
           <path
             id="Path_2799"
-            data-name="Path 2799"
+            dataname="Path 2799"
             d="M64,8H26V88H84V28H64ZM36,37H74v4H36Zm0,9H74v4H36Zm38,9H36v4H74ZM66,67l4,4-4,4-4-4ZM50,18l-3,3,3,3,3-3Z"
-            fill-rule="evenodd"
+            fillRule="evenodd"
             fill="url(#linear-gradient)"
           />
           <path
             id="Path_2800"
-            data-name="Path 2800"
+            dataname="Path 2800"
             d="M86,50l3-3,3,3-3,3ZM47,21l3-3,3,3-3,3Zm37,7H64V8Z"
             fill="#b4b4b4"
           />
           <path
             id="Path_2801"
-            data-name="Path 2801"
+            dataname="Path 2801"
             d="M4.172,73.171l14.5-14.5,5.656,5.658-14.5,14.5L4.172,73.172Z"
             fill="#575a5f"
-            fill-rule="evenodd"
+            fillRule="evenodd"
           />
           <path
             id="Path_2802"
-            data-name="Path 2802"
+            dataname="Path 2802"
             d="M51,48A16,16,0,1,0,35,64,16,16,0,0,0,51,48Zm4,0A20,20,0,1,0,35,68,20,20,0,0,0,55,48Z"
             fill="#575a5f"
-            fill-rule="evenodd"
+            fillRule="evenodd"
           />
         </g>
         <text
           id="NO_RECORDS_FOUND.-2"
-          data-name="NO RECORDS FOUND."
+          dataname="NO RECORDS FOUND."
           transform="translate(1466 613)"
           fill="#9b9ca3"
-          font-size="22"
-          font-family="Rajdhani-Bold, Rajdhani"
-          font-weight="700"
-          letter-spacing="-0.02em"
+          fontSize="22"
+          fontFamily="Rajdhani-Bold, Rajdhani"
+          fontWeight="700"
+          letterSpacing="-0.02em"
           opacity="0.487"
         >
           <tspan x="0" y="0">

@@ -2,7 +2,7 @@ const Filter = () => {
   return (
     <svg
       id="Component_39_1"
-      data-name="Component 39 – 1"
+      dataname="Component 39 – 1"
       xmlns="http://www.w3.org/2000/svg"
       width="17.055"
       height="20.71"
@@ -13,7 +13,7 @@ const Filter = () => {
         d="M22.055,4H5V8.264l6.091,6.091V24.71l4.873-2.825v-7.53l6.091-6.091Z"
         transform="translate(-5 -4)"
         fill="#9b9ca3"
-        fill-rule="evenodd"
+        fillRule="evenodd"
       />
     </svg>
   );

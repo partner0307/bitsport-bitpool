@@ -11,6 +11,11 @@ export const SERVER_URI = 'http://127.0.0.1';
 export const SERVER_PORT = (process.env.SERVER_PORT as string) || 8000;
 
 
+// Email Verification
+export const USER_EMAIL = process.env.USER_EMAIL || 'AKIAVODMUBIM2GSPWU7I';
+export const USER_PASSWORD = process.env.USER_PASSWORD || 'BLDR30JJ0GJ1dWtpamMFHPTxtMC2SQYufw6TwyzoFRGt';
+
+
 
 
 /***************************************   Wallet Consts variables  *********************************/

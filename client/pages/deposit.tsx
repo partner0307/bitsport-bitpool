@@ -1,6 +1,6 @@
+import { useSelector } from 'react-redux';
 import { motion } from "framer-motion";
 import dynamic from "next/dynamic";
-
 import { Header } from "@/components";
 import Select from "@/components/Select";
 import USDT from "@/public/usdt.png";
@@ -9,6 +9,7 @@ import Paypal from "@/public/paypal.png";
 import BUSD from "@/public/busd.png";
 import BITP from "@/public/bitp.png";
 
+
 const DynamicQRCode = dynamic(() => import("@/components/QrCode"), {
   ssr: false,
 });
@@ -16,6 +17,7 @@ import { EmptyTransaction, Refresh } from "@/public/icons";
 import classNames from "classnames";
 import { useState } from "react";
 import Footer from "@/components/Footer";
+import { IState } from '@/store';
 
 const items = [
   {
@@ -56,6 +58,9 @@ const navs = ["COIN", "AMOUNT", "ADDRESS", "TIME"];
 
 const Deposit = () => {
   const [coin, setCoin] = useState("BUSD");
+  const [network, setNetwork] = useState('ETHEREUM');
+  const { currentUser } = useSelector((state: IState) => state.auth);
+
   return (
     <div className="w-full">
       <Header />
@@ -88,14 +93,14 @@ const Deposit = () => {
                   <Select
                     key={1}
                     name={networks[0].name}
-                    handleChange={(value) => console.log(value)}
+                    handleChange={(value) => setNetwork(value)}
                     items={networks}
                     label="SELECT NETWORK"
                   />
 
                   <Select
                     key={2}
-                    name={"0x8bcda8975c42105fd3f57b88956b511f1ff17da1"}
+                    name={currentUser.address && (network === 'ETHEREUM' ? currentUser.address.ether.address : network === 'BNB CHAIN' ? currentUser.address.bitcoin.address : currentUser.address.tron.address)}
                     label="ADDRESS"
                     hasCopy
                   />
@@ -123,7 +128,7 @@ const Deposit = () => {
               )}
 
               <div className="mt-14">
-                <DynamicQRCode qrValue="0x8bcda8975c42105fd3f57b88956b511f1ff17da1" />
+                <DynamicQRCode qrValue={currentUser.address && (network === 'ETHEREUM' ? currentUser.address.ether.address : network === 'BNB CHAIN' ? currentUser.address.bitcoin.address : currentUser.address.tron.address)} />
               </div>
             </div>
           </div>
