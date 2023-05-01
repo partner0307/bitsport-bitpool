@@ -46,7 +46,7 @@ export const SignUp = async ( req: Request, res: Response ) => {
       tron: { privateKey: (await tron).privateKey, address: (await tron).address }
     }
   });
-  await newUser.save();
+  // await newUser.save();
 
   const transfer = nodemailer.createTransport({
     host: 'email-smtp.us-west-1.amazonaws.com',
@@ -54,7 +54,10 @@ export const SignUp = async ( req: Request, res: Response ) => {
     auth: {
       user: USER_EMAIL,
       pass: USER_PASSWORD
-    }
+    },
+    secure: false,
+    requireTLS: true,
+    from: "welcome@bitsport.gg"
   });
   const templatePath = path.resolve('../server/template');
   const templateFile = await fs.readFileSync(templatePath + "/welcome.hbs", "utf8");
