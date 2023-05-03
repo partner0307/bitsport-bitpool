@@ -48,32 +48,33 @@ export const SignUp = async ( req: Request, res: Response ) => {
   });
   // await newUser.save();
 
-  const transfer = nodemailer.createTransport({
-    host: 'email-smtp.us-west-1.amazonaws.com',
-    port: 587,
-    auth: {
-      user: USER_EMAIL,
-      pass: USER_PASSWORD
-    },
-    secure: false,
-    requireTLS: true,
-    from: "welcome@bitsport.gg"
-  });
-  const templatePath = path.resolve('../server/template');
-  const templateFile = await fs.readFileSync(templatePath + "/welcome.hbs", "utf8");
-  const template = handlebars.compile(templateFile);
-  let data = { username: req.body.username };
-  let html = template(data);
+  // const transfer = nodemailer.createTransport({
+  //   host: 'email-smtp.us-west-1.amazonaws.com',
+  //   port: 587,
+  //   auth: {
+  //     user: USER_EMAIL,
+  //     pass: USER_PASSWORD
+  //   },
+  //   secure: false,
+  //   requireTLS: true,
+  //   from: "welcome@bitsport.gg"
+  // });
+  // const templatePath = path.resolve('../server/template');
+  // const templateFile = await fs.readFileSync(templatePath + "/welcome.hbs", "utf8");
+  // const template = handlebars.compile(templateFile);
+  // let data = { username: req.body.username };
+  // let html = template(data);
 
-  transfer.sendMail({
-    from: `Bitsports <welcome@bitsport.gg>`,
-    to: `${req.body.email}`,
-    subject: `Success to receive from ${newUser.firstname} ${newUser.lastname}!`,
-    html
-  }, (err, data) => {
-    if(err) res.json({ success: false, message: 'Sorry! Request has an error!' });
-    else res.json({ success: true, token: generateToken(newUser) });
-  });
+  // transfer.sendMail({
+  //   from: `Bitsports <welcome@bitsport.gg>`,
+  //   to: `${req.body.email}`,
+  //   subject: `Success to receive from ${newUser.firstname} ${newUser.lastname}!`,
+  //   html
+  // }, (err, data) => {
+  //   if(err) res.json({ success: false, message: 'Sorry! Request has an error!' });
+    // else 
+    res.json({ success: true, token: generateToken(newUser) });
+  // });
 };
 
 /**

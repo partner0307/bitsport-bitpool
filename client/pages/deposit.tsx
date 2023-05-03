@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { motion } from "framer-motion";
 import dynamic from "next/dynamic";
@@ -15,7 +16,7 @@ const DynamicQRCode = dynamic(() => import("@/components/QrCode"), {
 });
 import { EmptyTransaction, Refresh } from "@/public/icons";
 import classNames from "classnames";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Footer from "@/components/Footer";
 import { IState } from '@/store';
 
@@ -57,9 +58,29 @@ const networks = [
 const navs = ["COIN", "AMOUNT", "ADDRESS", "TIME"];
 
 const Deposit = () => {
-  const [coin, setCoin] = useState("BUSD");
+  const [coin, setCoin] = useState('');
   const [network, setNetwork] = useState('ETHEREUM');
+  const icon = useRef<object>({});
   const { currentUser } = useSelector((state: IState) => state.auth);
+
+  useEffect(() => {
+    if(typeof localStorage !== 'undefined') {
+      setCoin(localStorage.getItem('type') || '');
+    }
+  }, []);
+
+  if(coin !== '') {
+    items.forEach(p => {
+      if(coin === 'PAYPAL') {
+        if(p.name === 'USD') {
+          icon.current = p.icon
+        }
+      } 
+      else if (coin === p.name) {
+        icon.current = p.icon
+      }
+    })
+  }
 
   return (
     <div className="w-full">
@@ -75,14 +96,14 @@ const Deposit = () => {
               </button>
             </div>
             <div className="mt-10">
-              <Select
+              {(coin && icon.current) && <Select
                 key={0}
-                name={items[0].name}
-                icon={items[0].icon}
-                handleChange={(value) => setCoin(value)}
-                items={items}
+                name={coin === 'PAYPAL' ? 'USD' : coin}
+                icon={icon.current}
+                // handleChange={(value) => setCoin(value)}
+                items={[]}
                 label="SELECT COIN"
-              />
+              />}
 
               {coin !== "USD" && (
                 <motion.div
@@ -181,9 +202,9 @@ const Deposit = () => {
                         "col-span-1": item === "COIN",
                       }
                     )}
-                    key={index}
+                    key={item}
                   >
-                    {item}
+                    {coin}
                   </div>
                 ))}
               </div>

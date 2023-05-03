@@ -57,6 +57,10 @@ const Wallet = () => {
   const toggleSwap = () => {
     setIsSwapOpen(!isSwapOpen);
   };
+  const gotoDeposit = (type: string) => {
+    localStorage.setItem('type', type);
+    window.location.href = '/deposit';
+  }
   return (
     <div className="w-full">
       <Header />
@@ -120,22 +124,18 @@ const Wallet = () => {
                     {item.value}
                   </div>
                   <div className="relative">
-                    <Link
-                      href={item.type === "deposit" ? "/deposit" : "#"}
+                    <button
+                      className={`${
+                        item.type === "deposit"
+                          ? "bg-secondary-150"
+                          : "bg-secondary-300"
+                      } font-bold text-white ml-10 xl:ml-0 h-7 lg:h-9 px-1 lg:px-2 w-16 lg:w-24 lg:text-sm ten`}
                       onClick={
-                        item.type !== "deposit" ? toggleSwap : () => null
+                        item.type !== "deposit" ? toggleSwap : () => gotoDeposit(item.name)
                       }
                     >
-                      <button
-                        className={`${
-                          item.type === "deposit"
-                            ? "bg-secondary-150"
-                            : "bg-secondary-300"
-                        } font-bold text-white ml-10 xl:ml-0 h-7 lg:h-9 px-1 lg:px-2 w-16 lg:w-24 lg:text-sm ten`}
-                      >
-                        {item.type === "deposit" ? "DEPOSIT" : "SWAP"}
-                      </button>
-                    </Link>
+                      {item.type === "deposit" ? "DEPOSIT" : "SWAP"}
+                    </button>
                     <div className="xl:bg-primary-50 bg-primary-100 h-3 w-6 absolute rotate-45 -top-1.5 md:right-9 lg:right-14 xl:right-7 -right-10" />
                   </div>
                   {item.hasWithdraw && (

@@ -8,11 +8,12 @@ const authSlice = createSlice({
   name: "auth",
   initialState: {
     currentUser:({} as GenericState<object>),
+    type: ''
   },
   reducers: {
     setCurrentUser: (state, action: PayloadAction<object>) => {
       state.currentUser = action.payload;
-    },
+    }
   }
 });
 

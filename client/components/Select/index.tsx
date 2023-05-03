@@ -29,7 +29,6 @@ const Select = (props: ISelect) => {
   };
 
   const onChange = (data: any) => {
-    console.log(data);
     setSelected({
       icon: data.icon,
       name: data.name,
@@ -41,11 +40,13 @@ const Select = (props: ISelect) => {
   };
 
   useEffect(() => {
-    setSelected({
-      icon: props.icon,
-      name: props.name,
-    });
-  }, [props]);
+    if(props.icon) {
+      setSelected({
+        icon: props.icon,
+        name: props.name,
+      });
+    }
+  }, []);
   return (
     <div className="relative w-full mb-7">
       <div
