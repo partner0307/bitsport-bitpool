@@ -26,6 +26,7 @@
     "express": "^4.17.1",
     "express-handlebars": "^7.0.7",
     "jsonwebtoken": "^8.5.1",
+    "moment": "^2.29.4",
     "mongoose": "^5.11.13",
     "node-mailer": "^0.1.1",
     "nodemailer-express-handlebars": "^6.1.0",

@@ -1,6 +1,7 @@
 import { Request, Response, Router } from "express";
 import * as auth from "../controllers/auth.controller";
 import * as challenge from '../controllers/challenges.controller';
+import * as wallet from '../controllers/wallet.controller';
 // import Authenticate from "../service/auth";
 
 /**
@@ -24,6 +25,7 @@ router.post('/challenge/save', challenge.save);
 router.delete('/challenge/remove/:id', challenge.remove);
 
 // Wallet
-
+router.post('/deposit', wallet.deposit);
+router.post('/withdraw', wallet.withdraw);
 
 export default router;

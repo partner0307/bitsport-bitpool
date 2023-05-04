@@ -1,7 +1,14 @@
-import { useRef } from 'react';
+import Axios from 'axios';
 import { useSelector } from 'react-redux';
 import { motion } from "framer-motion";
 import dynamic from "next/dynamic";
+import { EmptyTransaction, Refresh } from "@/public/icons";
+import classNames from "classnames";
+import { useEffect, useState, useRef } from "react";
+import Footer from "@/components/Footer";
+import { IState } from '@/store';
+import { SERVER_URI } from '@/config';
+import { notification } from 'antd';
 import { Header } from "@/components";
 import Select from "@/components/Select";
 import USDT from "@/public/usdt.png";
@@ -9,16 +16,12 @@ import QIC from "@/public/qc.png";
 import Paypal from "@/public/paypal.png";
 import BUSD from "@/public/busd.png";
 import BITP from "@/public/bitp.png";
+import CAKE from '@/public/cake.png';
 
 
 const DynamicQRCode = dynamic(() => import("@/components/QrCode"), {
   ssr: false,
 });
-import { EmptyTransaction, Refresh } from "@/public/icons";
-import classNames from "classnames";
-import { useEffect, useState } from "react";
-import Footer from "@/components/Footer";
-import { IState } from '@/store';
 
 const items = [
   {
@@ -28,6 +31,10 @@ const items = [
   {
     icon: USDT,
     name: "USDT",
+  },
+  {
+    icon: CAKE,
+    name: "CAKE"
   },
   {
     icon: Paypal,
@@ -63,6 +70,23 @@ const Deposit = () => {
   const icon = useRef<object>({});
   const { currentUser } = useSelector((state: IState) => state.auth);
 
+  const getTransaction = () => {
+    if(currentUser) {
+      const payload = { network, coin, user: currentUser.id };
+      Axios.post(`${SERVER_URI}/deposit`, payload).then(res => {
+        if(res.data.success) {
+          console.log(res.data);
+        } else {
+          console.log(res.data);
+        }
+      });
+    } else {
+      notification.warning({ message: 'Warning!', description: 'Please login to' });
+    }
+  }
+
+  // setTimeout(() => getTransaction(), 15000);
+
   useEffect(() => {
     if(typeof localStorage !== 'undefined') {
       setCoin(localStorage.getItem('type') || '');
@@ -90,7 +114,7 @@ const Deposit = () => {
           <div>
             <div className="flex items-center gap-20">
               <h2 className="text-white font-bold text-2xl">DEPOSIT</h2>
-              <button className="flex lg:hidden bg-secondary-450 px-6 py-2 rounded-lg items-center text-white gap-3 font-bold text-base">
+              <button onClick={() => coin !== 'PAYPAL' && getTransaction()} className="flex lg:hidden bg-secondary-450 px-6 py-2 rounded-lg items-center text-white gap-3 font-bold text-base">
                 <div>REFRESH</div>
                 <Refresh />
               </button>
@@ -100,12 +124,13 @@ const Deposit = () => {
                 key={0}
                 name={coin === 'PAYPAL' ? 'USD' : coin}
                 icon={icon.current}
+                handleChange={value => coin !== 'PAYPAL' && getTransaction()}
                 // handleChange={(value) => setCoin(value)}
                 items={[]}
                 label="SELECT COIN"
               />}
 
-              {coin !== "USD" && (
+              {coin !== "PAYPAL" && (
                 <motion.div
                   initial={{ opacity: 0, scale: 0.5 }}
                   animate={{ opacity: 1, scale: 1 }}
@@ -113,8 +138,8 @@ const Deposit = () => {
                 >
                   <Select
                     key={1}
-                    name={networks[0].name}
-                    handleChange={(value) => setNetwork(value)}
+                    name={network}
+                    handleChange={(value) => {setNetwork(value); coin !== 'PAYPAL' && getTransaction()}}
                     items={networks}
                     label="SELECT NETWORK"
                   />
@@ -128,7 +153,7 @@ const Deposit = () => {
                 </motion.div>
               )}
 
-              {coin === "USD" && (
+              {coin === "PAYPAL" && (
                 <motion.div
                   initial={{ opacity: 0, scale: 0.5 }}
                   animate={{ opacity: 1, scale: 1 }}
@@ -149,7 +174,7 @@ const Deposit = () => {
               )}
 
               <div className="mt-14">
-                <DynamicQRCode qrValue={currentUser.address && (network === 'ETHEREUM' ? currentUser.address.ether.address : network === 'BNB CHAIN' ? currentUser.address.bitcoin.address : currentUser.address.tron.address)} />
+                {network !== 'PAYPAL' && <DynamicQRCode qrValue={currentUser.address && (network === 'ETHEREUM' ? currentUser.address.ether.address : network === 'BNB CHAIN' ? currentUser.address.bitcoin.address : currentUser.address.tron.address)} />}
               </div>
             </div>
           </div>
@@ -204,7 +229,7 @@ const Deposit = () => {
                     )}
                     key={item}
                   >
-                    {coin}
+                    {item}
                   </div>
                 ))}
               </div>

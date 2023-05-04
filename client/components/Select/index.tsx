@@ -40,12 +40,10 @@ const Select = (props: ISelect) => {
   };
 
   useEffect(() => {
-    if(props.icon) {
       setSelected({
         icon: props.icon,
         name: props.name,
       });
-    }
   }, []);
   return (
     <div className="relative w-full mb-7">
@@ -72,7 +70,7 @@ const Select = (props: ISelect) => {
             })}
           />
           <div className="text-white font-medium text-sm xl:text-lg">
-            {selected.name}
+            {props.name}
           </div>
         </div>
         {props.hasCopy ? (

@@ -25,6 +25,8 @@ export const ETHEREUM: string = 'ETHEREUM';
 export const SOLANA: string = 'SOLANA';
 export const BITCOIN: string = 'BITCOIN';
 export const RIPPLE: string = 'RIPPLE';
+export const BNBCHAIN: string = 'BNB CHAIN';
+export const TRON: string = 'TRON';
 
 // Derived Path
 export const ETHEREUM_DEFAULT: string = "m/44'/60'/0'/0/";
@@ -110,6 +112,24 @@ export const TRONGRID_API_KEY = {
     testnet: '6739be94-ee43-46af-9a62-690cf0947269',
     dappchain: 'a981e232-a995-4c81-9653-c85e4d05f599'
 }
+
+// Coin Addresses
+export const BUSD_TOKEN_ADDRESS_BNB: string = process.env.BUSD_TOKEN_ADDRESS_BNB || '0xe9e7cea3dedca5984780bafc599bd69add087d56'
+export const BUSD_TOKEN_ADDRESS_ETH: string = process.env.BUSD_TOKEN_ADDRESS_ETH || '0x4fabb145d64652a948d72533023f6e7a623c7c53'
+export const BUSD_TOKEN_ADDRESS_TRON: string = process.env.BUSD_TOKEN_ADDRESS_TRON || 'TMz2SWatiAtZVVcH2ebpsbVtYwUPT9EdjH '
+
+export const USDT_TOKEN_ADDRESS_BNB: string = process.env.USDT_TOKEN_ADDRESS_BNB || '0x55d398326f99059ff775485246999027b3197955'
+export const USDT_TOKEN_ADDRESS_ETH: string = process.env.USDT_TOKEN_ADDRESS_ETH || '0xdac17f958d2ee523a2206206994597c13d831ec7'
+export const USDT_TOKEN_ADDRESS_TRON: string = process.env.USDT_TOKEN_ADDRESS_TRON || 'TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t'
+
+export const CAKE_TOKEN_ADDRESS_BNB: string = process.env.CAKE_TOKEN_ADDRESS_BNB || '0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82'
+export const CAKE_TOKEN_ADDRESS_ETH: string = process.env.CAKE_TOKEN_ADDRESS_ETH || '0x152649eA73beAb28c5b49B26eb48f7EAD6d4c898'
+export const CAKE_TOKEN_ADDRESS_TRON: string = process.env.CAKE_TOKEN_ADDRESS_TRON || 'TPS2YfDckq9jwTw3kojvSpYXRgAiBKXiGm'
+
+// Network api
+export const ETHEREUM_TRANSACTION: string = process.env.ETHEREUM_TRANSACTION || 'https://api.etherscan.io/';
+export const BNBCHAIN_TRANSACTION: string = process.env.BNBCHAIN_TRANSACTION || 'https://api.bscscan.com/';
+export const TRON_TRANSACTION: string = process.env.TRON_TRANSACTION || 'https://api.trongrid.io/';
 
 // RPC_ENDPOINTS
 

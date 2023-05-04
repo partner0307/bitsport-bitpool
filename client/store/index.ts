@@ -5,6 +5,7 @@ import { challengeReducer } from './challenge';
 export interface IState {
     auth: {
         currentUser: {
+            id: string,
             email: string,
             password: string,
             username: string,

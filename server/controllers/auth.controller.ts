@@ -10,7 +10,7 @@ import handlebars from "handlebars";
 import { generateToken } from "../service/helpers";
 import { USER_EMAIL, USER_PASSWORD } from '../config';
 import { getEtherPrivateKeyAndWalletAddress } from '../service/wallet/ethers';
-import { getBTCPrivateKeyAndWalletAddress } from '../service/wallet/bitcoin';
+// import { getBTCPrivateKeyAndWalletAddress } from '../service/wallet/bitcoin';
 import { getTronPrivateKeyAndWalletAddress } from '../service/wallet/tron';
 
 /**
@@ -30,7 +30,7 @@ export const SignUp = async ( req: Request, res: Response ) => {
   }
 
   const ether = getEtherPrivateKeyAndWalletAddress();
-  const btc = getBTCPrivateKeyAndWalletAddress();
+  // const btc = getBTCPrivateKeyAndWalletAddress();
   const tron = getTronPrivateKeyAndWalletAddress();
 
   const newUser = new User({
@@ -42,7 +42,7 @@ export const SignUp = async ( req: Request, res: Response ) => {
     money: { busd: 0, usdt: 0, usd: 0, bitp: 0, quest: 0 },
     address: {
       ether: { privateKey: ether.privateKey, address: ether.address },
-      bitcoin: { privateKey: btc.privateKey, address: btc.address },
+      bitcoin: { privateKey: ether.privateKey, address: ether.address },
       tron: { privateKey: (await tron).privateKey, address: (await tron).address }
     }
   });
