@@ -1,11 +1,12 @@
 import { motion } from "framer-motion";
-import { useState, useEffect, useRef, EventHandler } from 'react';
-import { useSelector } from 'react-redux';
+import { useState, useEffect, useRef } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Header } from "@/components";
 import { IState } from '@/store';
 import { SERVER_URI } from '@/config';
-import { Modal, notification } from 'antd';
+import { Table, Modal, notification } from 'antd';
 import Axios from 'axios';
+import moment from 'moment';
 import Select from "@/components/Select";
 import USDT from "@/public/usdt.png";
 import QIC from "@/public/qc.png";
@@ -15,7 +16,7 @@ import BITP from "@/public/bitp.png";
 import { EmptyTransaction, Refresh } from "@/public/icons";
 import classNames from "classnames";
 import Footer from "@/components/Footer";
-import { EventEmitter } from "stream";
+import { authActions } from "@/store/auth";
 
 const items = [
   {
@@ -55,42 +56,45 @@ const networks = [
 const navs = ["DATE & TIME", "COIN", "AMOUNT", "ADDRESS"];
 
 const Withdraw = () => {
-  const [coin, setCoin] = useState('');
+  const [coin, setCoin] = useState('BUSD');
   const [network, setNetwork] = useState('ETHEREUM');
   const [withdrawalAddress, setWithdrawalAddress] = useState('');
   const [amount, setAmount] = useState(0);
+  const [history, setHistory] = useState([]);
   const icon = useRef<object>({});
   const { currentUser } = useSelector((state: IState) => state.auth);
+  const dispatch = useDispatch();
 
   const withDrawAction = () => {
-    Modal.confirm({
-      title: 'Withdraw Action',
-      content: 'Are you sure to withdraw?',
-      onOk() {
-        const payload = {};
-        Axios.post(`${SERVER_URI}/withdraw`, payload).then(res => {
-          if(res.data.success) {
-            console.log(res.data);
-          } else {
-            console.log(res.data);
-          }
-        });
-      }
-    })
+    if(currentUser) {
+      Modal.confirm({
+        title: 'Withdraw Action',
+        content: 'Are you sure to withdraw?',
+        onOk() {
+          const payload = {coin, network, address: withdrawalAddress, user: currentUser._id, amount};
+          Axios.post(`${SERVER_URI}/withdraw`, payload).then(res => {
+            if(res.data.success) {
+              notification.success({ message: 'Success!', description: 'You have successfully withdrawn' });
+              localStorage.setItem('token', res.data.token);
+              dispatch(authActions.setCurrentUser(res.data.user));
+              setHistory(res.data.history);
+            }
+          });
+        }
+      })
+    }
   }
 
   useEffect(() => {
-    if(typeof localStorage !== 'undefined') {
-      setCoin(localStorage.getItem('type') || '');
-    }
+    Axios.post(`${SERVER_URI}/withdraw/index`, { user: currentUser._id }).then(res => {
+      setHistory(res.data.model);
+    });
   }, []);
 
   if(coin !== '') {
     items.forEach(p => {
-      if(coin === 'PAYPAL') {
-        if(p.name === 'USD') {
-          icon.current = p.icon
-        }
+      if(coin === 'USD') {
+        icon.current = p.icon;
       } 
       else if (coin === p.name) {
         icon.current = p.icon
@@ -116,10 +120,10 @@ const Withdraw = () => {
             <div className="mt-10">
               {(coin && icon.current) && <Select
                 key={0}
-                name={coin === 'PAYPAL' ? 'USD' : coin}
+                name={coin === 'USD' ? 'USD' : coin}
                 icon={icon.current}
-                // handleChange={(value) => setCoin(value)}
-                items={[]}
+                handleChange={(value) => setCoin(value)}
+                items={items}
                 label="WALLET BALANCE"
               />}
 
@@ -218,16 +222,12 @@ const Withdraw = () => {
                   TRANSACTION HISTORY
                 </h3>
                 <div className="grid mt-6 grid-cols-4 items-center gap-20 xl:gap-32">
-                  {navs.map((item, index) => (
-                    <div
-                      className={classNames(
-                        "text-xs xl:text-sm font-bold text-primary-450 whitespace-nowrap"
-                      )}
-                      key={index}
-                    >
-                      {item}
-                    </div>
-                  ))}
+                  {history.length && <Table size='middle' rowKey='_id' dataSource={history} pagination={false} columns={[
+                    {title: 'COIN', dataIndex: 'coin' },
+                    {title: 'AMOUNT', dataIndex: 'amount'},
+                    {title: 'ADDRESS', dataIndex: 'address'},
+                    {title: 'TIME', dataIndex: 'date', render: (text, record) => moment(text).format('YYYY-MM-DD')}
+                  ]} />}
                 </div>
                 <div className="mt-20 xl:ml-28 flex w-full justify-center">
                   <EmptyTransaction />

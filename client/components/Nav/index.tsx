@@ -279,7 +279,7 @@ const MobileNav = ({ open, close }: { open: boolean; close: () => void }) => {
         Body={NoChallenge}
         isOpen={isChallengeOpen}
         close={toggleChallenge}
-        isVoid
+        isVoid={0}
       />
     </>
   );

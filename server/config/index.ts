@@ -130,6 +130,7 @@ export const CAKE_TOKEN_ADDRESS_TRON: string = process.env.CAKE_TOKEN_ADDRESS_TR
 export const ETHEREUM_TRANSACTION: string = process.env.ETHEREUM_TRANSACTION || 'https://api.etherscan.io/';
 export const BNBCHAIN_TRANSACTION: string = process.env.BNBCHAIN_TRANSACTION || 'https://api.bscscan.com/';
 export const TRON_TRANSACTION: string = process.env.TRON_TRANSACTION || 'https://api.trongrid.io/';
+export const INFURA_URL: string = process.env.INFURA_URL || 'https://mainnet.infura.io/v3/4b4f9d91a45846939231b666740bc499';
 
 // RPC_ENDPOINTS
 
@@ -220,3 +221,10 @@ export const ERRORS = {
         description: 'This address must be activated to use'
     }
 }
+
+
+
+
+/************************************************************     GAME    ****************************************/
+export const APP_SERVER_URI = 'https://app.bitsport.gg/api';
+export const WALLET_SERVER_URI = 'https://wallet.bitpool.gg/api';

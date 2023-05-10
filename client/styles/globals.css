@@ -101,6 +101,7 @@ body {
   padding: 0;
   box-sizing: border-box;
   background-color: black;
+  scroll-behavior: smooth;
 }
 
 .small-border-b {
@@ -353,6 +354,22 @@ body {
 .ant-table-pagination-right > .ant-pagination-item > a:hover,
 .ant-table-pagination-right > .ant-pagination-next > .ant-pagination-item-link:hover {
   color: #aaa;
+}
+
+.game-iframe {
+  width: 90%;
+  height: calc(100vh - 130px);
+}
+
+.flow-y-none {
+  overflow-y: hidden !important;
+}
+
+.game-dashboard {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 ::-webkit-scrollbar {

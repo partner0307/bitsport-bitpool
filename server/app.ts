@@ -1,7 +1,7 @@
 import { SERVER_PORT, SERVER_URI } from "./config";
 import express from "express";
-// import morgan from "morgan";
 import cors from "cors";
+import fs from 'fs';
 
 import passport from "passport";
 import middlewarePassport from "./service/passport";
@@ -15,8 +15,8 @@ app.set("port", SERVER_PORT);
 
 //Middlewares
 app.use(cors());
-// app.use(morgan("dev"));
 app.use(express.json());
+app.use(express.static('./client/build'));
 app.use(express.urlencoded({ extended: false }));
 
 //Passport
@@ -26,8 +26,13 @@ passport.use(middlewarePassport);
 //Routes
 app.use("/api", apiRoutes);
 
-app.get("/", (req, res) => {
-  res.send(`The API is at ${SERVER_URI}:${app.get("port")}`);
+app.get("*", (req, res) => {
+  fs.readFile('./client/build/index.html', { encoding: 'utf-8' }, (err, data) => {
+    if(!data)
+      res.send('Error occurred in client/build/index.html');
+    else
+      res.send(data);
+  })
 });
 
 export default app;

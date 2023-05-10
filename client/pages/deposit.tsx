@@ -1,5 +1,5 @@
 import Axios from 'axios';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { motion } from "framer-motion";
 import dynamic from "next/dynamic";
 import { EmptyTransaction, Refresh } from "@/public/icons";
@@ -8,7 +8,7 @@ import { useEffect, useState, useRef } from "react";
 import Footer from "@/components/Footer";
 import { IState } from '@/store';
 import { SERVER_URI } from '@/config';
-import { notification } from 'antd';
+import { Table, notification } from 'antd';
 import { Header } from "@/components";
 import Select from "@/components/Select";
 import USDT from "@/public/usdt.png";
@@ -17,6 +17,8 @@ import Paypal from "@/public/paypal.png";
 import BUSD from "@/public/busd.png";
 import BITP from "@/public/bitp.png";
 import CAKE from '@/public/cake.png';
+import { authActions } from '@/store/auth';
+import moment from 'moment';
 
 
 const DynamicQRCode = dynamic(() => import("@/components/QrCode"), {
@@ -62,22 +64,24 @@ const networks = [
   },
 ];
 
-const navs = ["COIN", "AMOUNT", "ADDRESS", "TIME"];
+// const navs = ["COIN", "AMOUNT", "ADDRESS", "TIME"];
 
 const Deposit = () => {
-  const [coin, setCoin] = useState('');
+  const [history, setHistory] = useState([]);
+  const [coin, setCoin] = useState('BUSD');
   const [network, setNetwork] = useState('ETHEREUM');
   const icon = useRef<object>({});
   const { currentUser } = useSelector((state: IState) => state.auth);
+  const dispatch = useDispatch();
 
   const getTransaction = () => {
     if(currentUser) {
-      const payload = { network, coin, user: currentUser.id };
+      const payload = { network, coin, user: currentUser._id };
       Axios.post(`${SERVER_URI}/deposit`, payload).then(res => {
         if(res.data.success) {
-          console.log(res.data);
-        } else {
-          console.log(res.data);
+          localStorage.setItem('token', res.data.token);
+          dispatch(authActions.setCurrentUser(res.data.user));
+          setHistory(res.data.model);
         }
       });
     } else {
@@ -87,24 +91,23 @@ const Deposit = () => {
 
   // setTimeout(() => getTransaction(), 15000);
 
-  useEffect(() => {
-    if(typeof localStorage !== 'undefined') {
-      setCoin(localStorage.getItem('type') || '');
-    }
-  }, []);
-
   if(coin !== '') {
     items.forEach(p => {
-      if(coin === 'PAYPAL') {
-        if(p.name === 'USD') {
-          icon.current = p.icon
-        }
+      if(coin === 'USD') {
+        icon.current = p.icon
       } 
       else if (coin === p.name) {
         icon.current = p.icon
       }
     })
   }
+
+  useEffect(() => {
+    if (coin === 'USD') return;
+    getTransaction();
+
+    console.log(currentUser);
+  }, [coin, network])
 
   return (
     <div className="w-full">
@@ -114,7 +117,7 @@ const Deposit = () => {
           <div>
             <div className="flex items-center gap-20">
               <h2 className="text-white font-bold text-2xl">DEPOSIT</h2>
-              <button onClick={() => coin !== 'PAYPAL' && getTransaction()} className="flex lg:hidden bg-secondary-450 px-6 py-2 rounded-lg items-center text-white gap-3 font-bold text-base">
+              <button onClick={() => coin !== 'PAYPAL'} className="flex lg:hidden bg-secondary-450 px-6 py-2 rounded-lg items-center text-white gap-3 font-bold text-base">
                 <div>REFRESH</div>
                 <Refresh />
               </button>
@@ -122,11 +125,10 @@ const Deposit = () => {
             <div className="mt-10">
               {(coin && icon.current) && <Select
                 key={0}
-                name={coin === 'PAYPAL' ? 'USD' : coin}
+                name={coin}
                 icon={icon.current}
-                handleChange={value => coin !== 'PAYPAL' && getTransaction()}
-                // handleChange={(value) => setCoin(value)}
-                items={[]}
+                handleChange={value => {setCoin(value)}}
+                items={items}
                 label="SELECT COIN"
               />}
 
@@ -139,7 +141,7 @@ const Deposit = () => {
                   <Select
                     key={1}
                     name={network}
-                    handleChange={(value) => {setNetwork(value); coin !== 'PAYPAL' && getTransaction()}}
+                    handleChange={(value) => {setNetwork(value)}}
                     items={networks}
                     label="SELECT NETWORK"
                   />
@@ -219,24 +221,17 @@ const Deposit = () => {
             </h3>
             <div className="flex items-center gap-32 mt-6">
               <div className="grid grid-cols-4 items-center gap-20 xl:gap-28">
-                {navs.map((item, index) => (
-                  <div
-                    className={classNames(
-                      "text-xs xl:text-sm font-bold text-primary-450",
-                      {
-                        "col-span-1": item === "COIN",
-                      }
-                    )}
-                    key={item}
-                  >
-                    {item}
-                  </div>
-                ))}
+                {history.length && <Table size='middle' rowKey='_id' dataSource={history} pagination={false} columns={[
+                  {title: 'COIN', dataIndex: 'coin' },
+                  {title: 'AMOUNT', dataIndex: 'amount'},
+                  {title: 'ADDRESS', dataIndex: 'address'},
+                  {title: 'TIME', dataIndex: 'date', render: (text, record) => moment(text).format('YYYY-MM-DD')}
+                ]} />}
               </div>
             </div>
-            <div className="mt-20 flex w-full justify-center">
+            {!history.length && <div className="mt-20 flex w-full justify-center">
               <EmptyTransaction />
-            </div>
+            </div>}
           </div>
         </div>
       </div>

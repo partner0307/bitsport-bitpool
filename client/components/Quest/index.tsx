@@ -1,8 +1,14 @@
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { motion } from "framer-motion";
 import { ArrowDown, Quest } from "@/public/icons";
-import Link from "next/link";
 import Button, { variantTypes, volumeTypes } from "../Button";
+import { IState } from '@/store';
+import Cookie from 'js-cookie';
+import Axios from 'axios';
+import { SERVER_URI } from '@/config';
+import { notification } from 'antd';
+import { useRouter } from 'next/router'
 
 export interface IItemProp {
   title: string;
@@ -13,6 +19,7 @@ export interface IItemProp {
 export interface IProp {
   index: number;
   quest: {
+    _id: string;
     amount: number;
     streak: number;
     qc: number;
@@ -22,7 +29,20 @@ export interface IProp {
 }
 
 const QuestComponent = (prop: IProp) => {
+  const router = useRouter()
   const [open, setOpen] = useState(false);
+
+  const startGame = () => {
+    Axios.post(`${SERVER_URI}/game/start`, { cid: prop.quest._id, uid: Cookie.get('uid') }).then(res => {
+      if(res.data.success) {
+        localStorage.setItem('cid', prop.quest._id);
+        router.push('/game');
+      } else {
+        notification.warning({ message: 'Warning!', description: res.data.message });
+      }
+    })
+  }
+
   return <>
     <div
       className="bg-primary-400 lg:h-20 h-14 px-5 items-center flex justify-between"
@@ -47,14 +67,13 @@ const QuestComponent = (prop: IProp) => {
         <div className="text-primary-450 text-sm font-bold">DIFFICALTY</div>
         <div className=" text-white text-base font-semibold">{prop.quest.difficalty === 1 ? 'HARD' : prop.quest.difficalty === 2 ? 'MEDIUM' : 'HARD'}</div>
       </div>
-      <Link href="/game">
-        <Button
-          variant={variantTypes.secondary}
-          textVol={volumeTypes.sm}
-          px="xl:px-20 px-5"
-          text="ACCEPT"
-        />
-      </Link>
+      <Button
+        variant={variantTypes.secondary}
+        textVol={volumeTypes.sm}
+        onClick={() => startGame()}
+        px="xl:px-20 px-5"
+        text="ACCEPT"
+      />
       <div onClick={() => setOpen(!open)} className="cursor-pointer xl:hidden self-center">
         <ArrowDown />
       </div>

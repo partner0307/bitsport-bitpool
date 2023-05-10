@@ -5,7 +5,7 @@ import { challengeReducer } from './challenge';
 export interface IState {
     auth: {
         currentUser: {
-            id: string,
+            _id: string,
             email: string,
             password: string,
             username: string,
@@ -16,7 +16,8 @@ export interface IState {
                 ether: { privateKey: string, address: string },
                 bitcoin: { privateKey: string, address: string },
                 tron: { privateKey: string, address: string }
-            }
+            },
+            uid: number
         },
         type: string
     }
