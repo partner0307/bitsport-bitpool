@@ -31,16 +31,21 @@ export interface IProp {
 const QuestComponent = (prop: IProp) => {
   const router = useRouter()
   const [open, setOpen] = useState(false);
+  const {currentUser} = useSelector((state: IState) => state.auth);
 
   const startGame = () => {
-    Axios.post(`${SERVER_URI}/game/start`, { cid: prop.quest._id, uid: Cookie.get('uid') }).then(res => {
-      if(res.data.success) {
-        localStorage.setItem('cid', prop.quest._id);
-        router.push('/game');
-      } else {
-        notification.warning({ message: 'Warning!', description: res.data.message });
-      }
-    })
+    if(currentUser) {
+      Axios.post(`${SERVER_URI}/game/start`, { cid: prop.quest._id, uid: Cookie.get('uid') }).then(res => {
+        if(res.data.success) {
+          localStorage.setItem('cid', prop.quest._id);
+          router.push('/game');
+        } else {
+          notification.warning({ message: 'Warning!', description: res.data.message });
+        }
+      })
+    } else {
+      notification.warning({ message: 'Warning!', description: 'Please login!' });
+    }
   }
 
   return <>

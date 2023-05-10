@@ -90,7 +90,6 @@ export const start_match = (req: Request, res: Response) => {
 }
 
 export const submit_result = (req: Request, res: Response) => {
-    console.log('sdff');
     const challenge_id = req.body.match_id;
 
     // win = 1 | loss = 0
