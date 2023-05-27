@@ -1,10 +1,82 @@
 import { Swap as SwapI, SwapArrow, SwapIcon, SwapTo } from "@/public/icons";
 import Image from "next/image";
 import QIC from "@/public/qc.png";
+import USDT from "@/public/usdt.png";
+import Paypal from "@/public/paypal.png";
 import BUSD from "@/public/busd.png";
+import BITP from "@/public/bitp.png";
+import CAKE from "@/public/cake.png";
 import SuccessIcon from "@/public/success.png";
 import FailedIcon from "@/public/failed.png";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import Select from "@/components/Select";
+import Axios from "axios";
+import { useSelector } from "react-redux";
+import { IState } from "@/store";
+import { SERVER_URI } from "@/config";
+import { notification } from "antd";
+import { getCake } from "@/service/helper";
+
+const itemsFrom = [
+  {
+    icon: BUSD,
+    name: "BUSD",
+    ratio: 1,
+  },
+  {
+    icon: USDT,
+    name: "USDT",
+    ratio: 1,
+  },
+  {
+    icon: CAKE,
+    name: "CAKE",
+    ratio: 2,
+  },
+  {
+    icon: Paypal,
+    name: "USD",
+    ratio: 1,
+  },
+  {
+    icon: BITP,
+    name: "BITP",
+    ratio: 0.06,
+  },
+];
+
+const itemsTo = [
+  {
+    icon: BUSD,
+    name: "BUSD",
+    ratio: 1,
+  },
+  {
+    icon: USDT,
+    name: "USDT",
+    ratio: 1,
+  },
+  {
+    icon: CAKE,
+    name: "CAKE",
+    ratio: 2,
+  },
+  {
+    icon: Paypal,
+    name: "USD",
+    ratio: 1,
+  },
+  {
+    icon: BITP,
+    name: "BITP",
+    ratio: 0.06,
+  },
+  {
+    icon: QIC,
+    name: "Quest Credit",
+    ratio: 3,
+  },
+];
 
 const Swap = () => {
   const [step, setStep] = useState(0);
@@ -29,6 +101,113 @@ const Swap = () => {
 export default Swap;
 
 const SwapCoin = ({ next }: { next: (num?: number) => void }) => {
+  const { currentUser } = useSelector((state: IState) => state.auth);
+  const [coinFrom, setCoinFrom] = useState("BUSD");
+  const [coinTo, setCoinTo] = useState("BUSD");
+  const iconFrom = useRef<object>({});
+  const iconTo = useRef<Object>({});
+  const [fromTokenAmount, setFromTokenAmount] = useState(0);
+  const [toTokenAmount, setToTokenAmount] = useState(0);
+  const [cakePrice, setCakePrice] = useState(1);
+
+  if (coinFrom !== "") {
+    itemsFrom.forEach((p) => {
+      if (coinFrom === p.name) {
+        iconFrom.current = p.icon;
+      }
+    });
+  }
+
+  if (coinTo !== "") {
+    itemsTo.forEach((p) => {
+      if (coinTo === p.name) {
+        iconTo.current = p.icon;
+      }
+    });
+  }
+
+  useEffect(() => {
+    getCakePrice();
+  }, []);
+
+  useEffect(() => {
+    itemsFrom[2].ratio = cakePrice;
+    itemsTo[2].ratio = cakePrice;
+  }, [cakePrice]);
+
+  const getCakePrice = async () => {
+    getCake().then(price => {
+      setCakePrice(price);
+    });
+  };
+
+  useEffect(() => {
+    let ratioFrom = itemsFrom.filter((item) => item.name == coinFrom)[0].ratio;
+    let ratioTo = itemsTo.filter((item) => item.name == coinTo)[0].ratio;
+    let toTokenVal = (fromTokenAmount * ratioFrom) / ratioTo;
+    setToTokenAmount(toTokenVal);
+  }, [fromTokenAmount, coinFrom]);
+
+  useEffect(() => {
+    let ratioFrom = itemsFrom.filter((item) => item.name == coinFrom)[0].ratio;
+    let ratioTo = itemsTo.filter((item) => item.name == coinTo)[0].ratio;
+    let fromTokenVal = (toTokenAmount * ratioTo) / ratioFrom;
+    setFromTokenAmount(fromTokenVal);
+  }, [toTokenAmount, coinTo]);
+
+  const onRefreshHandler = () => {
+    setFromTokenAmount(0);
+    setToTokenAmount(0);
+    setCoinFrom("BUSD");
+    setCoinTo("BUSD");
+  };
+
+  const onSwapButtonClicked = () => {
+    if (coinFrom == coinTo) {
+      notification.warning({
+        message: "Warning!",
+        description: "Please choose differnt coins to swap",
+      });
+      return;
+    }
+    if (fromTokenAmount == 0) {
+      notification.warning({
+        message: "Warning!",
+        description: "Please select token amount",
+      });
+      return;
+    }
+    const swapinfo = {
+      user: currentUser.id,
+      coinFrom,
+      fromTokenAmount,
+      coinTo,
+      toTokenAmount,
+    };
+
+    Axios.post(`${SERVER_URI}/swap`, swapinfo).then((res) => {
+      if (res.data.success) {
+        notification.success({
+          message: "Success!",
+          description: res.data.message,
+        });
+      } else {
+        notification.warning({
+          message: "Warning!",
+          description: res.data.message,
+        });
+      }
+    });
+    // next();
+  };
+
+  const onSwapInputValueHandler = () => {
+    setCoinFrom(coinTo);
+    setCoinTo(coinFrom);
+    setFromTokenAmount(toTokenAmount);
+    setToTokenAmount(fromTokenAmount);
+  };
+
   return (
     <div>
       <div className="lg:text-2xl text-xl font-bold text-primary-900">SWAP</div>
@@ -37,46 +216,58 @@ const SwapCoin = ({ next }: { next: (num?: number) => void }) => {
           <div className="lg:text-lg text-base font-bold text-primary-450">
             SWAP TOKENS IN AN INSTANT
           </div>
-          <SwapI />
+          <div onClick={() => onRefreshHandler()}>
+            <SwapI />
+          </div>
         </div>
         <div className="absolute opacity-40 right-0 lg:-left-8 mt-5 lg:w-modal w-full thin-line bg-white" />
       </div>
-      <div className="mt-24 flex items-center justify-between">
-        <Image
-          className="h-7 w-9 lg:h-14 lg:w-16 object-contain"
-          priority={true}
-          src={BUSD}
-          alt="crypto coin"
+      <div className="mt-24 flex items-center justify-between gap-2">
+        <Select
+          key={0}
+          name={coinFrom}
+          icon={iconFrom.current}
+          handleChange={(value) => {
+            setCoinFrom(value);
+          }}
+          items={itemsFrom}
+          label="SWAP FROM"
         />
-        <div className="font-medium text-sm text-white lg:text-xl">BUSD</div>
-        <SwapArrow />
         <input
           type="number"
           placeholder="0.00"
           className="bg-secondary-400 text-xl text-right px-4 h-12 lg:w-60 lg:h-14 placeholder:text-white placeholder:font-medium font-medium text-white rounded border-none outline-none"
+          value={fromTokenAmount}
+          onChange={(e) => setFromTokenAmount(Number(e.target.value))}
         />
       </div>
       <div className="flex justify-center items-center mt-14">
-        <SwapIcon />
+        <div onClick={() => onSwapInputValueHandler()}>
+          <SwapIcon />
+        </div>
       </div>
-      <div className="mt-14 flex items-center justify-between">
-        <Image
-          className="h-7 w-9 lg:h-14 lg:w-16 object-contain"
-          priority={true}
-          src={QIC}
-          alt="quest credit"
+      <div className="mt-14 flex items-center justify-between gap-2">
+        <Select
+          key={0}
+          name={coinTo}
+          icon={iconTo.current}
+          handleChange={(value) => {
+            setCoinTo(value);
+          }}
+          items={itemsTo}
+          label="SWAP TO"
         />
-        <div className="font-medium text-sm text-white lg:text-xl">QUEST</div>
-        <SwapArrow />
         <input
           type="number"
           placeholder="0.00"
           className="bg-secondary-400 text-xl text-right px-4 h-12 lg:w-60 lg:h-14 placeholder:text-white placeholder:font-medium font-medium text-white rounded border-none outline-none"
+          value={toTokenAmount}
+          onChange={(e) => setToTokenAmount(Number(e.target.value))}
         />
       </div>
 
       <button
-        onClick={() => next()}
+        onClick={() => onSwapButtonClicked()}
         className="mt-14 bg-secondary-300 text-white w-full rounded font-bold text-xl h-14"
       >
         SWAP

@@ -1,12 +1,12 @@
-import { MONGO_URI } from "./config";
 import mongoose from "mongoose";
-
+import dotenv from "dotenv";
+dotenv.config();
 /**
  * Connection to DB
  * Using Mongoose
  * MongoClientOptions
  */
-mongoose.connect(MONGO_URI, {
+mongoose.connect(process.env.MONGO_URI as string, {
   useCreateIndex: true,
   useNewUrlParser: true,
   useUnifiedTopology: true,

@@ -386,6 +386,13 @@ ajv@^6.10.0, ajv@^6.12.4:
     json-schema-traverse "^0.4.1"
     uri-js "^4.2.2"
 
+alert@^5.1.4:
+  version "5.1.4"
+  resolved "https://registry.npmjs.org/alert/-/alert-5.1.4.tgz"
+  integrity sha512-fVgDH06nzfNvaBp5+KPgTL4ezq2FrwzQ10l5626Txyelf7xp7ZbskIBu/c4tHCv/0JJ8vLwZy+sIbO+dKORcYA==
+  dependencies:
+    is-program-installed "2.3.4"
+
 ansi-regex@^5.0.1:
   version "5.0.1"
   resolved "https://registry.npmjs.org/ansi-regex/-/ansi-regex-5.0.1.tgz"
@@ -1627,6 +1634,11 @@ is-path-inside@^3.0.3:
   version "3.0.3"
   resolved "https://registry.npmjs.org/is-path-inside/-/is-path-inside-3.0.3.tgz"
   integrity sha512-Fd4gABb+ycGAmKou8eMftCupSir5lRxqf4aD/vd0cD2qc4HL07OjCeuHMr8Ro4CoMaeCKDB0/ECBOVWjTwUvPQ==
+
+is-program-installed@2.3.4:
+  version "2.3.4"
+  resolved "https://registry.npmjs.org/is-program-installed/-/is-program-installed-2.3.4.tgz"
+  integrity sha512-b4e65BxUsiLkoFSOu8RAca7Rz7rPvnbw0u0lS431BFyI37C4lM6F+OjQ5DNODMakjKfcoOY9aeaPqXgFoezhsg==
 
 is-regex@^1.1.4:
   version "1.1.4"

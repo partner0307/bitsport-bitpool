@@ -1691,9 +1691,15 @@ ethereumjs-util@^7.1.0, ethereumjs-util@^7.1.1, ethereumjs-util@^7.1.2, ethereum
     rlp "^2.2.4"
 
 ethers@^5.4.4, ethers@^5.6.9:
+<<<<<<< HEAD
   version "5.6.9"
   resolved "https://registry.npmjs.org/ethers/-/ethers-5.6.9.tgz"
   integrity sha512-lMGC2zv9HC5EC+8r429WaWu3uWJUCgUCt8xxKCFqkrFuBDZXDYIdzDUECxzjf2BMF8IVBByY1EBoGSL3RTm8RA==
+=======
+  version "5.7.2"
+  resolved "https://registry.npmjs.org/ethers/-/ethers-5.7.2.tgz"
+  integrity sha512-wswUsmWo1aOK8rR7DIKiWSw9DbLWe6x98Jrn8wcTflTVvaXhAMaB5zGAXy0GYQEQp9iO1iSHWVyARQm11zUtyg==
+>>>>>>> 2244af5180e507855b9846536be982bbd8e34b99
   dependencies:
     "@ethersproject/abi" "5.6.4"
     "@ethersproject/abstract-provider" "5.6.1"

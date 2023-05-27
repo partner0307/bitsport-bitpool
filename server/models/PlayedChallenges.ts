@@ -6,12 +6,13 @@ import { IPlayedChallenge } from "../service/interfaces";
  */
 
 const PlayedChallengeSchema = new Schema({
-    user_id: { type: String, required: true },
-    challenge_id: { type: mongoose.Types.ObjectId, ref: 'Challenge', required: true },
+    user_id: { type: Number, required: true },
+    challenge_id: { type: Number, required: true },
     start_match: { type: String, required: true, trim: true },
     end_match: { type: String, required: true, trim: true },
     winorloss: { type: String, required: true, trim: true },
-    status: { type: Number, required: true }
+    status: { type: Number },
+    index: { type: Number, required: true, default: 0 }
 },{ timestamps: true });
 
 /**

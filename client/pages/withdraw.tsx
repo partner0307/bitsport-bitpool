@@ -1,15 +1,16 @@
 import { motion } from "framer-motion";
-import { useState, useEffect, useRef } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useState, useEffect, useRef } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { Header } from "@/components";
-import { IState } from '@/store';
-import { SERVER_URI } from '@/config';
-import { Table, Modal, notification } from 'antd';
-import Axios from 'axios';
-import moment from 'moment';
+import { IState } from "@/store";
+import { SERVER_URI } from "@/config";
+import { Table, Modal, notification } from "antd";
+import Axios from "axios";
+import moment from "moment";
 import Select from "@/components/Select";
 import USDT from "@/public/usdt.png";
 import QIC from "@/public/qc.png";
+import CAKE from "@/public/cake.png";
 import Paypal from "@/public/paypal.png";
 import BUSD from "@/public/busd.png";
 import BITP from "@/public/bitp.png";
@@ -17,6 +18,7 @@ import { EmptyTransaction, Refresh } from "@/public/icons";
 import classNames from "classnames";
 import Footer from "@/components/Footer";
 import { authActions } from "@/store/auth";
+import jwtDecode from "jwt-decode";
 
 const items = [
   {
@@ -28,16 +30,8 @@ const items = [
     name: "USDT",
   },
   {
-    icon: Paypal,
-    name: "USD",
-  },
-  {
-    icon: BITP,
-    name: "BITP",
-  },
-  {
-    icon: QIC,
-    name: "Quest Credit",
+    icon: CAKE,
+    name: "CAKE",
   },
 ];
 
@@ -56,50 +50,76 @@ const networks = [
 const navs = ["DATE & TIME", "COIN", "AMOUNT", "ADDRESS"];
 
 const Withdraw = () => {
-  const [coin, setCoin] = useState('BUSD');
-  const [network, setNetwork] = useState('ETHEREUM');
-  const [withdrawalAddress, setWithdrawalAddress] = useState('');
+  const [coin, setCoin] = useState("BUSD");
+  const [network, setNetwork] = useState("ETHEREUM");
+  const [withdrawalAddress, setWithdrawalAddress] = useState("");
   const [amount, setAmount] = useState(0);
-  const [history, setHistory] = useState([]);
   const icon = useRef<object>({});
+  const [history, setHistory] = useState([]);
   const { currentUser } = useSelector((state: IState) => state.auth);
   const dispatch = useDispatch();
 
-  const withDrawAction = () => {
-    if(currentUser) {
-      Modal.confirm({
-        title: 'Withdraw Action',
-        content: 'Are you sure to withdraw?',
-        onOk() {
-          const payload = {coin, network, address: withdrawalAddress, user: currentUser._id, amount};
-          Axios.post(`${SERVER_URI}/withdraw`, payload).then(res => {
-            if(res.data.success) {
-              notification.success({ message: 'Success!', description: 'You have successfully withdrawn' });
-              localStorage.setItem('token', res.data.token);
-              dispatch(authActions.setCurrentUser(res.data.user));
-              setHistory(res.data.history);
-            }
-          });
-        }
-      })
-    }
-  }
+  const getTransaction = () => {
+    Axios.post(`${SERVER_URI}/withdrawHistory `, {
+      user: currentUser.id,
+    }).then((res) => {
+      if (res) {
+        setHistory(res.data.history);
+      } else {
+        console.log("failed");
+        setHistory([]);
+      }
+    });
+  };
 
   useEffect(() => {
-    Axios.post(`${SERVER_URI}/withdraw/index`, { user: currentUser._id }).then(res => {
-      setHistory(res.data.model);
-    });
-  }, []);
+    if (!currentUser) return;
+    getTransaction();
+  }, [currentUser]);
 
-  if(coin !== '') {
-    items.forEach(p => {
-      if(coin === 'USD') {
+  const withDrawAction = () => {
+    if (currentUser) {
+      Modal.confirm({
+        title: "Withdraw Action",
+        content: "Are you sure to withdraw?",
+        onOk() {
+          const payload = {
+            coin,
+            network,
+            address: withdrawalAddress,
+            user: currentUser.id,
+            amount,
+          };
+          Axios.post(`${SERVER_URI}/withdraw`, payload).then((res) => {
+            if (res.data.success) {
+              notification.success({
+                message: "Success!",
+                description: "You have successfully withdrawn",
+              });
+              getTransaction();
+              localStorage.setItem("token", res.data.token);
+              dispatch(authActions.setCurrentUser(jwtDecode(res.data.token)));
+              // setHistory(res.data.history);
+            } else {
+              notification.error({
+                message: "ERROR!",
+                description: res.data.message,
+              });
+            }
+          });
+        },
+      });
+    }
+  };
+
+  if (coin !== "") {
+    items.forEach((p) => {
+      if (coin === "USD") {
         icon.current = p.icon;
-      } 
-      else if (coin === p.name) {
-        icon.current = p.icon
+      } else if (coin === p.name) {
+        icon.current = p.icon;
       }
-    })
+    });
   }
 
   return (
@@ -118,14 +138,16 @@ const Withdraw = () => {
               </button>
             </div>
             <div className="mt-10">
-              {(coin && icon.current) && <Select
-                key={0}
-                name={coin === 'USD' ? 'USD' : coin}
-                icon={icon.current}
-                handleChange={(value) => setCoin(value)}
-                items={items}
-                label="WALLET BALANCE"
-              />}
+              {coin && icon.current && (
+                <Select
+                  key={0}
+                  name={coin === "USD" ? "USD" : coin}
+                  icon={icon.current}
+                  handleChange={(value) => setCoin(value)}
+                  items={items}
+                  label="WALLET BALANCE"
+                />
+              )}
 
               {coin !== "USD" && (
                 <motion.div
@@ -206,7 +228,10 @@ const Withdraw = () => {
                 </motion.div>
               )}
 
-              <button className="my-14 w-full bg-secondary-450 px-8 py-3 rounded text-white font-bold text-lg" onClick={() => withDrawAction()}>
+              <button
+                className="my-14 w-full bg-secondary-450 px-8 py-3 rounded text-white font-bold text-lg"
+                onClick={() => withDrawAction()}
+              >
                 WITHDRAW FROM {coin === "USD" ? "PAYPAL" : coin} WALLET
               </button>
             </div>
@@ -222,16 +247,31 @@ const Withdraw = () => {
                   TRANSACTION HISTORY
                 </h3>
                 <div className="grid mt-6 grid-cols-4 items-center gap-20 xl:gap-32">
-                  {history.length && <Table size='middle' rowKey='_id' dataSource={history} pagination={false} columns={[
-                    {title: 'COIN', dataIndex: 'coin' },
-                    {title: 'AMOUNT', dataIndex: 'amount'},
-                    {title: 'ADDRESS', dataIndex: 'address'},
-                    {title: 'TIME', dataIndex: 'date', render: (text, record) => moment(text).format('YYYY-MM-DD')}
-                  ]} />}
+                  {history.length && (
+                    <Table
+                      size="middle"
+                      rowKey="_id"
+                      dataSource={history}
+                      pagination={false}
+                      columns={[
+                        { title: "COIN", dataIndex: "coin" },
+                        { title: "AMOUNT", dataIndex: "amount" },
+                        { title: "ADDRESS", dataIndex: "address" },
+                        {
+                          title: "TIME",
+                          dataIndex: "date",
+                          render: (text, record) =>
+                            moment(text).format("YYYY-MM-DD"),
+                        },
+                      ]}
+                    />
+                  )}
                 </div>
-                <div className="mt-20 xl:ml-28 flex w-full justify-center">
-                  <EmptyTransaction />
-                </div>
+                {!history.length && (
+                  <div className="mt-20 xl:ml-28 flex w-full justify-center">
+                    <EmptyTransaction />
+                  </div>
+                )}
               </div>
             </div>
           </div>

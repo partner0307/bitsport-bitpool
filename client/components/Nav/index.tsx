@@ -22,6 +22,11 @@ import Button, { variantTypes } from "../Button";
 import { useEffect, useState } from "react";
 import Modal from "../Modal";
 import { NoChallenge } from "../Header";
+import { useDispatch, useSelector } from "react-redux";
+import { IState } from "@/store";
+import { useRouter } from "next/router";
+import { authActions } from "@/store/auth";
+import { getCake } from "@/service/helper";
 
 const itemVariants: Variants = {
   open: {
@@ -74,11 +79,11 @@ const items = [
     icon: <News />,
     url: "/events",
   },
-  {
-    title: "TUTORIAL",
-    icon: <Tutorial />,
-    url: "#",
-  },
+  // {
+  //   title: "TUTORIAL",
+  //   icon: <Tutorial />,
+  //   url: "#",
+  // },
   {
     title: "DAPP",
     icon: <Dapp />,
@@ -130,18 +135,18 @@ const DesktopNav = () => {
           </motion.div>
         ))}
       </motion.div>
-
-      <div className="mt-20">
-        <Contact />
-      </div>
     </motion.nav>
   );
 };
 
 const MobileNav = ({ open, close }: { open: boolean; close: () => void }) => {
+  const { currentUser } = useSelector((state: IState) => state.auth);
+  const dispatch = useDispatch();
+  const router = useRouter();
+
   const [isOpen, setIsOpen] = useState(open);
-  const [loggedIn, setLoggedIn] = useState(true);
   const [isChallengeOpen, setIsChallengeOpen] = useState(false);
+  const [cakePrice, setCakePrice] = useState<number>(0);
 
   const handleClose = () => {
     setIsOpen(!isOpen);
@@ -154,9 +159,41 @@ const MobileNav = ({ open, close }: { open: boolean; close: () => void }) => {
     setIsChallengeOpen(!isChallengeOpen);
   };
 
+  const logout = () => {
+    localStorage.removeItem("token");
+    dispatch(authActions.setCurrentUser({}));
+    router.push("/");
+  };
+
+  const getCakePrice = async () => {
+    getCake().then(price => {
+      setCakePrice(price);
+    });
+  };
+
+  const calcTotal = () => {
+    if (currentUser && currentUser.money) {
+      const { busd, usdt, usd, cake, bitp, quest } = currentUser.money;
+      return (
+        (busd ?? 0) +
+        (usdt ?? 0) +
+        (usd ?? 0) +
+        (cake * cakePrice ?? 0) +
+        (bitp * 0.06 ?? 0) +
+        (quest * 3 ?? 0)
+      );
+    }
+    return 0;
+  };
+
+  useEffect(() => {
+    getCakePrice();
+  }, []);
+
   useEffect(() => {
     setIsOpen(open);
   }, [open]);
+
   return (
     <>
       <motion.nav
@@ -195,7 +232,7 @@ const MobileNav = ({ open, close }: { open: boolean; close: () => void }) => {
             </motion.div>
           </div>
           <div className="mt-10 flex flex-col justify-center items-center gap-5">
-            {loggedIn && (
+            {currentUser && currentUser?.email && (
               <div className="flex flex-col justify-center items-center">
                 <Image
                   priority={true}
@@ -206,8 +243,14 @@ const MobileNav = ({ open, close }: { open: boolean; close: () => void }) => {
                   className="cursor-pointer"
                 />
                 <h4 className="text-center font-bold text-lg text-primary-450 mt-2">
-                  BITSPORT_ADMIN
+                  {currentUser && currentUser.username}
                 </h4>
+                <div
+                  onClick={logout}
+                  className="text-white font-bold cursor-pointer mt-2"
+                >
+                  Logout
+                </div>
               </div>
             )}
             <Button
@@ -221,14 +264,16 @@ const MobileNav = ({ open, close }: { open: boolean; close: () => void }) => {
               <Link href="/wallet">
                 <div className="cursor-pointer px-1 py-4 flex items-center gap-1 bg-primary-950 rounded-l h-12">
                   <USDG width="15.194" height={"19.075"} />
-                  <div className="font-medium text-xs text-white font-Poppins">
-                    33 USDG
+                  <div className="font-medium whitespace-nowrap text-xs text-white font-Poppins">
+                    {calcTotal().toFixed(2)}
                   </div>
                   <div>
                     <QC width={"15.759"} height={"19.569"} />
                   </div>
-                  <div className="font-medium flex text-xs text-white font-Poppins">
-                    5 QC
+                  <div className="font-medium pr-2 flex text-xs text-white font-Poppins">
+                    {currentUser &&
+                      currentUser.money &&
+                      currentUser.money.quest}{" "}
                   </div>
                 </div>
               </Link>
@@ -276,7 +321,7 @@ const MobileNav = ({ open, close }: { open: boolean; close: () => void }) => {
 
       <Modal
         key={2}
-        Body={NoChallenge}
+        Body={<NoChallenge />}
         isOpen={isChallengeOpen}
         close={toggleChallenge}
         isVoid={0}

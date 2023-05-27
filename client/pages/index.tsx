@@ -1,16 +1,20 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { Button, Header } from "@/components";
 import Pagination from "@/components/Pagination";
 import QuestComponent from "@/components/Quest";
 import Footer from "@/components/Footer";
-import { SERVER_URI } from '@/config';
+import { SERVER_URI } from "@/config";
+import { Spin } from "antd";
 
 export default function Home() {
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    axios.get(`${SERVER_URI}/challenge/index`).then(res => {
+    setLoading(true);
+    axios.get(`${SERVER_URI}/challenge/index`).then((res) => {
+      setLoading(false);
       setData(res.data.models);
     });
   }, []);
@@ -25,7 +29,7 @@ export default function Home() {
             <h2 className="text-white mb-4 font-bold text-xl px-8 pt-4 xl:pt-0 xl:px-0 xl:text-6xl xl:text-4xl text-center font-Poppins">
               WORLD FIRST PLAY-TO-EARN POOL GAME
             </h2>
-            <Button px="px-4" text="Play Bit Pool Web" />
+            <Button px="px-4" text="Test2Earn" />
           </div>
         </div>
       </div>
@@ -39,10 +43,14 @@ export default function Home() {
 
         <div className="mt-5 xl:gap-11 flex w-full flex-col xl:flex-row  items-start justify-between">
           <div className="flex w-full flex-col gap-2">
-            {data.filter((p: any) => p.status < 2).map((item, index) => (
-              <QuestComponent key={index} quest={item} index={index} />
-            ))}
+            {loading
+            ? <Spin spinning={loading} tip='Loading...'></Spin>
+            : <>
+            {data?.map((item: any, index: any) => (
+                <QuestComponent key={index} quest={item} index={index} />
+              ))}
             <Pagination />
+            </>}
           </div>
         </div>
       </section>

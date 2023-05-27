@@ -1,7 +1,7 @@
-import { SERVER_PORT, SERVER_URI } from "./config";
+import { SERVER_PORT } from "./config";
 import express from "express";
 import cors from "cors";
-import fs from 'fs';
+import fs from "fs";
 
 import passport from "passport";
 import middlewarePassport from "./service/passport";
@@ -16,7 +16,7 @@ app.set("port", SERVER_PORT);
 //Middlewares
 app.use(cors());
 app.use(express.json());
-app.use(express.static('./client/build'));
+app.use(express.static("./client/build"));
 app.use(express.urlencoded({ extended: false }));
 
 //Passport

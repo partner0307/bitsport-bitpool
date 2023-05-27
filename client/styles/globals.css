@@ -350,15 +350,14 @@ body {
   border-radius: 3px;
 }
 
-.ant-table-pagination-right > .ant-pagination-prev > .ant-pagination-item-link:hover,
+.ant-table-pagination-right
+  > .ant-pagination-prev
+  > .ant-pagination-item-link:hover,
 .ant-table-pagination-right > .ant-pagination-item > a:hover,
-.ant-table-pagination-right > .ant-pagination-next > .ant-pagination-item-link:hover {
+.ant-table-pagination-right
+  > .ant-pagination-next
+  > .ant-pagination-item-link:hover {
   color: #aaa;
-}
-
-.game-iframe {
-  width: 90%;
-  height: calc(100vh - 130px);
 }
 
 .flow-y-none {
@@ -373,10 +372,10 @@ body {
 }
 
 ::-webkit-scrollbar {
- width: 8px;
- height: 8px;
- background-color: #f1f1f2;
- border-radius: 5px;
+  width: 8px;
+  height: 8px;
+  background-color: #f1f1f2;
+  border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb {

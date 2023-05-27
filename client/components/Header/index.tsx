@@ -22,6 +22,10 @@ import { MobileNav } from "../Nav";
 import Signup from "../Signup";
 import { IState } from "@/store";
 import { authActions } from "@/store/auth";
+import { SERVER_URI } from "@/config";
+import Axios from "axios";
+import { useRouter } from "next/router";
+import { getCake } from "@/service/helper";
 
 const Header = () => {
   const { currentUser } = useSelector((state: IState) => state.auth);
@@ -29,20 +33,38 @@ const Header = () => {
   const [isOpenSignup, setIsOpenSignup] = useState(false);
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [isChallengeOpen, setIsChallengeOpen] = useState(false);
+  const [cakePrice, setCakePrice] = useState<number>(0);
 
   const dispatch = useDispatch();
+  const router = useRouter();
 
-  useEffect(() => {
-    const getFromLocalStorage = (key: string) => {
-      if (!key || typeof window === "undefined" || !localStorage) {
-        return "";
-      }
-      return window.localStorage.getItem(key);
-    };
+  const getFromLocalStorage = (key: string) => {
+    if (!key || typeof window === "undefined" || !localStorage) {
+      return "";
+    }
+    return window.localStorage.getItem(key);
+  };
 
-    const token = getFromLocalStorage("token");
-    dispatch(authActions.setCurrentUser(token ? jwtDecode(token) : {}));
-  }, []);
+  const getCakePrice = async () => {
+    getCake().then((price) => {
+      setCakePrice(price);
+    });
+  };
+
+  const calcTotal = () => {
+    if (currentUser && currentUser.money) {
+      const { busd, usdt, usd, cake, bitp, quest } = currentUser.money;
+      return (
+        (busd ?? 0) +
+        (usdt ?? 0) +
+        (usd ?? 0) +
+        (cake * cakePrice ?? 0) +
+        (bitp * 0.06 ?? 0) +
+        (quest * 3 ?? 0)
+      );
+    }
+    return 0;
+  };
 
   const toggleLogin = () => {
     setIsOpenSignup(false);
@@ -58,6 +80,36 @@ const Header = () => {
   const toggleChallenge = () => {
     setIsChallengeOpen(!isChallengeOpen);
   };
+  const logout = () => {
+    localStorage.removeItem("token");
+    dispatch(authActions.setCurrentUser({}));
+    router.push("/");
+  };
+
+  const clickLoginRoute = () => {
+    toggleSignup();
+    toggleLogin();
+  };
+
+  const clickSignupRoute = () => {
+    toggleLogin();
+    toggleSignup();
+  };
+
+  useEffect(() => {
+    const token = getFromLocalStorage("token");
+    const user: any = token ? jwtDecode(token) : null;
+    dispatch(authActions.setCurrentUser(token ? user : {}));
+    getCakePrice();
+    if (user) {
+      Axios.post(`${SERVER_URI}/getUserInfo`, { user: user?.id }).then(
+        (res) => {
+          localStorage.setItem("token", res.data.token);
+        }
+      );
+    }
+  }, []);
+
   return (
     <>
       <div className="bg-primary-200 small-border-b xl:border-b-primary-150 border-b-black">
@@ -94,13 +146,16 @@ const Header = () => {
                     <div className="cursor-pointer px-6 py-7 flex items-center gap-3.5 bg-primary-950 rounded-l h-12">
                       <USDG width="30.194" height={"35.075"} />
                       <div className="font-medium lg:text-base text-xs text-white font-Poppins">
-                        33 USDG
+                        {calcTotal().toFixed(2)} USDG
                       </div>
                       <div className="ml-3">
                         <QC width={"29.759"} height={"34.569"} />
                       </div>
                       <div className="font-medium flex lg:text-base text-xs text-white font-Poppins">
-                        5 QC
+                        {currentUser &&
+                          currentUser.money &&
+                          currentUser.money.quest}{" "}
+                        QC
                       </div>
                     </div>
                   </Link>
@@ -112,14 +167,22 @@ const Header = () => {
               )}
             </div>
             {currentUser && currentUser.email ? (
-              <Image
-                priority={true}
-                height={75}
-                width={79}
-                src={Profile}
-                alt="profile"
-                className="cursor-pointer"
-              />
+              <div className="flex items-center justify-end gap-4">
+                <Image
+                  priority={true}
+                  height={75}
+                  width={79}
+                  src={Profile}
+                  alt="profile"
+                  className="cursor-pointer"
+                />
+                <div
+                  onClick={logout}
+                  className="text-white font-bold cursor-pointer"
+                >
+                  Logout
+                </div>
+              </div>
             ) : (
               <div className="flex items-center gap-4">
                 <Button onClick={toggleSignup} px="px-7" text="SIGN UP" />
@@ -160,13 +223,19 @@ const Header = () => {
                 <div className="cursor-pointe px-2 py-3 flex items-center gap-3 bg-primary-950 h-8 rounded-l">
                   <USDG width={17} height={19.75} />
                   <div className="font-medium lg:text-base ten text-white font-Poppins">
-                    33
+                    {calcTotal().toFixed(2)}
                   </div>
                 </div>
               </Link>
               <div className="cursor-pointer relative px-3 py-3 flex justify-center items-center bg-primary-1000 h-8 rounded-br">
                 <ArrowDown />
                 <div className="h-4 w-4 bg-primary-50 rotate-45 -top-2 -right-2.5 absolute"></div>
+              </div>
+              <div
+                onClick={logout}
+                className="text-white hidden md:block md:ml-7 font-bold cursor-pointer"
+              >
+                Logout
               </div>
             </div>
           ) : (
@@ -179,21 +248,21 @@ const Header = () => {
       <MobileNav open={isNavOpen} close={toggleNav} />
       <Modal
         key={0}
-        Body={Login}
+        Body={<Login switch={clickSignupRoute} close={toggleLogin} />}
         isOpen={isOpenLogin}
         close={toggleLogin}
         isVoid={1}
       />
       <Modal
         key={1}
-        Body={Signup}
+        Body={<Signup switch={clickLoginRoute} close={toggleSignup} />}
         isOpen={isOpenSignup}
         close={toggleSignup}
         isVoid={2}
       />
       <Modal
         key={2}
-        Body={NoChallenge}
+        Body={<NoChallenge />}
         isOpen={isChallengeOpen}
         close={toggleChallenge}
         isVoid={3}
